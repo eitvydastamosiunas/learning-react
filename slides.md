@@ -57,7 +57,7 @@ StateOfJS
 ---
 
 Google
-<img style="width: 700px;" src="images/react-google.png">
+<img style="width: 700px;" src="/images/react-google.png">
 
 [Source](https://trends.google.com/trends/explore?cat=1227&date=today%205-y&q=react,jquery,angular,vue)
 ---
@@ -1125,7 +1125,7 @@ StateOfJS
 ---
 
 Google
-<img style="width: 700px;" src="images/packages-google.png">
+<img style="width: 700px;" src="/images/packages-google.png">
 
 [Source](https://trends.google.com/trends/explore?cat=31&date=today%205-y&q=npm,yarn)
 ---
@@ -1182,7 +1182,7 @@ StateOfJS
 ---
 
 Google
-<img style="width: 700px;" src="images/bundlers-google.png">
+<img style="width: 700px;" src="/images/bundlers-google.png">
 
 [Source](https://trends.google.com/trends/explore?cat=31&date=today%205-y&q=webpack,gulp,browserify,vite)
 ---
@@ -1258,7 +1258,7 @@ StateOfJS
 ---
 
 Google
-<img style="width: 700px;" src="images/flavors-google.png">
+<img style="width: 700px;" src="/images/flavors-google.png">
 
 [Source](https://trends.google.com/trends/explore?cat=31&date=today%205-y&q=typescript,reason,elm,closurescript)
 
@@ -1349,7 +1349,7 @@ StateOfJS
 ---
 
 Google
-<img style="width: 700px;" src="images/tool-chains-google.png">
+<img style="width: 700px;" src="/images/tool-chains-google.png">
 
 [Source](https://trends.google.com/trends/explore?cat=31&date=today%205-y&q=next%20js,gatsby,create%20react%20app)
 ---

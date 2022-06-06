@@ -1,4 +1,4 @@
-# Practical introduction to Angular
+# Practical introduction to React
 
 |                     | Link                                                                |
 | ------------------- | ------------------------------------------------------------------- |
