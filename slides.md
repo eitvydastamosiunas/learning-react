@@ -23,7 +23,7 @@ hideInToc: true
 
 ---
 
-# Breef history of react
+# Breaf history of react
  - 2004 - [ECMAScript For XML](https://svn.wso2.org/repos/wso2/tags/carbon/0.1alpha/mashup/java/xdocs/e4xquickstart.html)
  - 2010 - [XHP](https://github.com/phplang/xhp)
  - 2011 - [FaxJS by Jordan Walke](https://github.com/jordwalke/FaxJs)
@@ -121,7 +121,7 @@ is translated to
 ```
 ---
 
-# JSX syntax
+JSX syntax
 <section class="grid grid-cols-2 gap-4">
 
   ```jsx {2}
@@ -190,7 +190,7 @@ const element = <h1>Hello, world</h1>;
 root.render(element);
 ```
 
-[Task: Fix application to display user info](https://codepen.io/gaearon/pen/PGEjdG?editors=1010)
+<b>[Task: Fix application to display user info](https://codepen.io/gaearon/pen/PGEjdG?editors=1010)</b>
 ---
 
 # Components
@@ -284,7 +284,7 @@ When React sees an element representing a user-defined component, it passes JSX 
 
 ---
 
-# Props
+Props
 
 <section class="grid grid-cols-2 gap-4">
 
@@ -660,7 +660,7 @@ function WarningBanner(props) {
   );
 }
 ```
-Preventing componet from rendering
+Preventing component from rendering
 
 </section>
 
@@ -766,288 +766,20 @@ function NumberList(props) {
 
 ---
 
-# Forms
+# Practical task "Static site"
 
-- HTML form elements work a bit differently from other DOM elements in React, because form elements naturally keep some internal state. 
-- In React, mutable state is typically kept in the state property of components, and only updated with useState(). 
-- We can combine the two by making the React state be the “single source of truth”. 
-- Then the React component that renders a form also controls what happens in that form on subsequent user input. 
-- An input form element whose value is controlled by React in this way is called a “controlled component”.
-
----
-
-```jsx {2-3|13,16|5-8|11|all}
-function LoginForm() {
-  const [username, setUsername] = React.useState('');
-  const [password, setPassword] = React.useState('');
-
-  const printValues = e => {
-    e.preventDefault();
-    console.log(username, password);
-  };
-
-  return (
-    <form onSubmit={printValues}>
-      <label> Username:
-        <input value={username} onChange={event => setUsername(event.target.value)} type="text" />
-      </label>
-      <label> Password:
-        <input value={password} onChange={event => setPassword(event.target.value)} type="password" />
-      </label>
-      <button>Submit</button>
-    </form>
-  );
-}
-```
-
----
-
-```jsx {2-5|19,22|11-13|17,7-10|all}
-function LoginForm() {
-  const [form, setState] = react.useState({
-    username: '',
-    password: ''
-  });
-
-  const printValues = e => {
-    e.preventDefault();
-    console.log(form.username, form.password);
-  };
-
-  const updateField = e => {
-    setState({ ...form, [e.target.name]: e.target.value });
-  };
-
-  return (
-    <form onSubmit={printValues}>
-      <label> Username:
-        <input value={form.username} name="username" onChange={updateField} /> 
-      </label>
-      <label> Password:
-        <input value={form.password} name="password" type="password" onChange={updateField} />
-      </label>
-      <button>Submit</button>
-    </form>
-  );
-}
-```
-
----
-
-Create custom hook which will handle value update and automatically binds to onChange event.
-
-```jsx {2|4-6|8-11|all}
-const useInput = (initialValue) => {
-  const [value, setState] = React.useState(initialValue);
-
-  const handleChange = (event) => {
-    setValue(event.target.value);
-  };
-
-  return {
-    value,
-    onChange: handleChange
-  };
-};
-```
-
----
-
-Reuse created hook to simplify code in form component
-
-```jsx {2-3|13,16|11|5-8|all}
-function LoginForm() {
-  const username = useInput("");
-  const password = useInput("");
-
-  const printValues = e => {
-    e.preventDefault();
-    console.log(username, password);
-  };
-
-  return (
-    <form onSubmit={printValues}>
-      <label> Username:
-        <input {...username} /> 
-      </label>
-      <label> Password:
-        <input type="password" {...password} />
-      </label>
-      <button>Submit</button>
-    </form>
-  );
-}
-```
-
----
-
-# Lifting State Up
-Often, several components need to reflect the same changing data. We recommend lifting the shared state up to their closest common ancestor. 
-
-This common problem is really obvious while working with arrays. While trying to split everything to small components the new issue appears. Multiple components rely on the same data and all components should be updated when the data changes.
-
-```jsx
-function TodoCount({ todos }) {
-  return <div>Total Todos: {todos.length}</div>;
-}
-
-function TodoList({ todos }) {
-  return (
-    <ul>
-      {todos.map((todo) => (
-        <li key={todo}>{todo}</li>
-      ))}
-    </ul>
-  );
-}
-```
-
----
-
-```jsx
-function App() {
-  const [todos, setTodos] = React.useState(["item 1", "item 2", "item 3"]);
-  return (
-    <>
-      <TodoCount todos={todos} />
-      <TodoList todos={todos} />
-      <AddTodo setTodos={setTodos} />
-    </>
-  );
-}
-
-function AddTodo({ setTodos }) {
-  function handleSubmit(event) {
-    event.preventDefault();
-    const todo = event.target.elements.todo.value;
-    setTodos(prevTodos => [...prevTodos, todo]);
-  }
-
-  return (
-    <form onSubmit={handleSubmit}>
-      <input type="text" id="todo" />
-      <button type="submit">Add Todo</button>
-    </form>
-  );
-}
-```
-
----
-
-# Composition
-React has a powerful composition model, and it is recommended using composition instead of inheritance to reuse code between components.
-
-```jsx {4|all}
-function FancyBorder(props) {
-  return (
-    <div className={'FancyBorder FancyBorder-' + props.color}>
-      {props.children}
-    </div>
-  );
-}
-```
-
-```jsx {4-9|all}
-function WelcomeDialog() {
-  return (
-    <FancyBorder color="blue">
-      <h1 className="Dialog-title">
-        Welcome
-      </h1>
-      <p className="Dialog-message">
-        Thank you for visiting our spacecraft!
-      </p>
-    </FancyBorder>
-  );
-}
-```
-
----
-
-While this is less common, sometimes you might need multiple “holes” in a component. In such cases you may come up with your own convention instead of using children
-
-```jsx {5,8|16-18|all}
-function SplitPane(props) {
-  return (
-    <div className="SplitPane">
-      <div className="SplitPane-left">
-        {props.left}
-      </div>
-      <div className="SplitPane-right">
-        {props.right}
-      </div>
-    </div>
-  );
-}
-
-function App() {
-  return (
-    <SplitPane
-      left={ <Contacts />}
-      right={ <Chat /> } />
-  );
-}
-```
-
----
-
-# Specialization
-
-Sometimes we think about components as being “special cases” of other components. For example, we might say that a WelcomeDialog is a special case of Dialog. 
-
-
-```jsx {16-18|5,8}
-function Dialog(props) {
-  return (
-    <FancyBorder color="blue">
-      <h1 className="Dialog-title">
-        {props.title}
-      </h1>
-      <p className="Dialog-message">
-        {props.message}
-      </p>
-    </FancyBorder>
-  );
-}
-
-function WelcomeDialog() {
-  return (
-    <Dialog
-      title="Welcome"
-      message="Thank you for visiting our spacecraft!" />
-  );
-}
-```
-
----
-
-Composition and Specialization works together
-
-```jsx {15-18|4-6|all}
-function Dialog(props) {
-  return (
-    <FancyBorder color="blue">
-      <h1 className="Dialog-title">{props.title}</h1>
-      <p className="Dialog-message">{props.message}</p>
-      {props.children}
-    </FancyBorder>
-  );
-}
-
-function SignUpDialog(props) {
-  const [login, setLogin] = useState('');
-  
-  return (
-    <Dialog title="Mars Exploration Program" message="How should we refer to you?">
-      <input value={this.state.login} onChange={this.handleChange} />
-      <button onClick={this.handleSignUp}>Sign Me Up!</button>
-    </Dialog>
-    );
-
-  handleChange(e) { setLogin(e.preventDefault(); e.target.value); }
-  handleSignUp() { alert(`Welcome aboard, ${this.state.login}!`); }
-}
-```
+Create static page and implement todo functionality using techniques you learned.
+1. Create new HTML page and add standard HTML elements
+2. Register following script links:
+  - script src="https://unpkg.com/react@17/umd/react.development.js"
+  - script src="https://unpkg.com/react-dom@17/umd/react-dom.development.js
+  - script src="https://unpkg.com/@babel/standalone/babel.min.js
+  - script type="text/jsx"
+3. Render react app displaying "Hello World!"
+4. Mock todos in array
+5. Create component which show todo count
+6. Create component which displays todo
+7. Create component which allows to add new todo
 
 ---
 
@@ -1406,6 +1138,298 @@ npm run dev
 ```
 
 [In detail](https://nextjs.org/docs/getting-started)
+
+---
+
+Practical task: create new next.js application using typescript
+
+
+
+
+---
+
+# Forms
+
+- HTML form elements work a bit differently from other DOM elements in React, because form elements naturally keep some internal state. 
+- In React, mutable state is typically kept in the state property of components, and only updated with useState(). 
+- We can combine the two by making the React state be the “single source of truth”. 
+- Then the React component that renders a form also controls what happens in that form on subsequent user input. 
+- An input form element whose value is controlled by React in this way is called a “controlled component”.
+
+---
+
+```jsx {2-3|13,16|5-8|11|all}
+function LoginForm() {
+  const [username, setUsername] = React.useState('');
+  const [password, setPassword] = React.useState('');
+
+  const printValues = e => {
+    e.preventDefault();
+    console.log(username, password);
+  };
+
+  return (
+    <form onSubmit={printValues}>
+      <label> Username:
+        <input value={username} onChange={event => setUsername(event.target.value)} type="text" />
+      </label>
+      <label> Password:
+        <input value={password} onChange={event => setPassword(event.target.value)} type="password" />
+      </label>
+      <button>Submit</button>
+    </form>
+  );
+}
+```
+
+---
+
+```jsx {2-5|19,22|11-13|17,7-10|all}
+function LoginForm() {
+  const [form, setState] = react.useState({
+    username: '',
+    password: ''
+  });
+
+  const printValues = e => {
+    e.preventDefault();
+    console.log(form.username, form.password);
+  };
+
+  const updateField = e => {
+    setState({ ...form, [e.target.name]: e.target.value });
+  };
+
+  return (
+    <form onSubmit={printValues}>
+      <label> Username:
+        <input value={form.username} name="username" onChange={updateField} /> 
+      </label>
+      <label> Password:
+        <input value={form.password} name="password" type="password" onChange={updateField} />
+      </label>
+      <button>Submit</button>
+    </form>
+  );
+}
+```
+
+---
+
+Create custom hook which will handle value update and automatically binds to onChange event.
+
+```jsx {2|4-6|8-11|all}
+const useInput = (initialValue) => {
+  const [value, setState] = React.useState(initialValue);
+
+  const handleChange = (event) => {
+    setValue(event.target.value);
+  };
+
+  return {
+    value,
+    onChange: handleChange
+  };
+};
+```
+
+---
+
+Reuse created hook to simplify code in form component
+
+```jsx {2-3|13,16|11|5-8|all}
+function LoginForm() {
+  const username = useInput("");
+  const password = useInput("");
+
+  const printValues = e => {
+    e.preventDefault();
+    console.log(username, password);
+  };
+
+  return (
+    <form onSubmit={printValues}>
+      <label> Username:
+        <input {...username} /> 
+      </label>
+      <label> Password:
+        <input type="password" {...password} />
+      </label>
+      <button>Submit</button>
+    </form>
+  );
+}
+```
+
+---
+
+# Lifting State Up
+Often, several components need to reflect the same changing data. We recommend lifting the shared state up to their closest common ancestor. 
+
+This common problem is really obvious while working with arrays. While trying to split everything to small components the new issue appears. Multiple components rely on the same data and all components should be updated when the data changes.
+
+```jsx
+function TodoCount({ todos }) {
+  return <div>Total Todos: {todos.length}</div>;
+}
+
+function TodoList({ todos }) {
+  return (
+    <ul>
+      {todos.map((todo) => (
+        <li key={todo}>{todo}</li>
+      ))}
+    </ul>
+  );
+}
+```
+
+---
+
+```jsx
+function App() {
+  const [todos, setTodos] = React.useState(["item 1", "item 2", "item 3"]);
+  return (
+    <>
+      <TodoCount todos={todos} />
+      <TodoList todos={todos} />
+      <AddTodo setTodos={setTodos} />
+    </>
+  );
+}
+
+function AddTodo({ setTodos }) {
+  function handleSubmit(event) {
+    event.preventDefault();
+    const todo = event.target.elements.todo.value;
+    setTodos(prevTodos => [...prevTodos, todo]);
+  }
+
+  return (
+    <form onSubmit={handleSubmit}>
+      <input type="text" id="todo" />
+      <button type="submit">Add Todo</button>
+    </form>
+  );
+}
+```
+
+---
+
+# Composition
+React has a powerful composition model, and it is recommended using composition instead of inheritance to reuse code between components.
+
+```jsx {4|all}
+function FancyBorder(props) {
+  return (
+    <div className={'FancyBorder FancyBorder-' + props.color}>
+      {props.children}
+    </div>
+  );
+}
+```
+
+```jsx {4-9|all}
+function WelcomeDialog() {
+  return (
+    <FancyBorder color="blue">
+      <h1 className="Dialog-title">
+        Welcome
+      </h1>
+      <p className="Dialog-message">
+        Thank you for visiting our spacecraft!
+      </p>
+    </FancyBorder>
+  );
+}
+```
+
+---
+
+While this is less common, sometimes you might need multiple “holes” in a component. In such cases you may come up with your own convention instead of using children
+
+```jsx {5,8|16-18|all}
+function SplitPane(props) {
+  return (
+    <div className="SplitPane">
+      <div className="SplitPane-left">
+        {props.left}
+      </div>
+      <div className="SplitPane-right">
+        {props.right}
+      </div>
+    </div>
+  );
+}
+
+function App() {
+  return (
+    <SplitPane
+      left={ <Contacts />}
+      right={ <Chat /> } />
+  );
+}
+```
+
+---
+
+# Specialization
+
+Sometimes we think about components as being “special cases” of other components. For example, we might say that a WelcomeDialog is a special case of Dialog. 
+
+
+```jsx {16-18|5,8}
+function Dialog(props) {
+  return (
+    <FancyBorder color="blue">
+      <h1 className="Dialog-title">
+        {props.title}
+      </h1>
+      <p className="Dialog-message">
+        {props.message}
+      </p>
+    </FancyBorder>
+  );
+}
+
+function WelcomeDialog() {
+  return (
+    <Dialog
+      title="Welcome"
+      message="Thank you for visiting our spacecraft!" />
+  );
+}
+```
+
+---
+
+Composition and Specialization works together
+
+```jsx {15-18|4-6|all}
+function Dialog(props) {
+  return (
+    <FancyBorder color="blue">
+      <h1 className="Dialog-title">{props.title}</h1>
+      <p className="Dialog-message">{props.message}</p>
+      {props.children}
+    </FancyBorder>
+  );
+}
+
+function SignUpDialog(props) {
+  const [login, setLogin] = useState('');
+  
+  return (
+    <Dialog title="Mars Exploration Program" message="How should we refer to you?">
+      <input value={this.state.login} onChange={this.handleChange} />
+      <button onClick={this.handleSignUp}>Sign Me Up!</button>
+    </Dialog>
+    );
+
+  handleChange(e) { setLogin(e.preventDefault(); e.target.value); }
+  handleSignUp() { alert(`Welcome aboard, ${this.state.login}!`); }
+}
+```
 
 ---
 
