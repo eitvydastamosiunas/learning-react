@@ -1406,7 +1406,483 @@ npm run dev
 ```
 
 [In detail](https://nextjs.org/docs/getting-started)
+
 ---
+
+# Context
+The React context provides data to components no matter how deep they are in the components tree. The context is used to manage global data, e.g. global state, theme, services, user settings, and more.
+
+<img style="width: 400px;" src="https://dmitripavlutin.com/90649ae4bdf379c482ad24e0dd220bc4/react-context-3.svg" />
+
+---
+
+<section class="grid grid-cols-2 gap-4">
+
+```jsx {2|all}
+import { createContext } from 'react';
+const Context = createContext('Default Value');
+```
+Creating the context
+
+</section>
+
+<section class="grid grid-cols-2 gap-4">
+
+```jsx {4-6|all}
+function Main() {
+  const value = 'My Context Value';
+  return (
+    <Context.Provider value={value}>
+      <MyComponent />
+    </Context.Provider>
+  );
+}
+```
+Providing the context
+
+</section>
+
+<section class="grid grid-cols-2 gap-4">
+
+```jsx {1,3-4,9-11|all}
+import { useContext } from 'react';
+function MyComponent() {
+  const value = useContext(Context);
+  return <span>{value}</span>;
+}
+
+function MyComponent() {
+  return (
+    <Context.Consumer>
+      {value => <span>{value}</span>}
+    </Context.Consumer>
+  );
+}
+```
+Consuming the context
+
+</section>
+
+---
+
+Use cases
+
+The main idea of using the context is to allow your components to access some global data and re-render when that global data is changed. Context solves the props drilling problem: when you have to pass down props from parents to children.
+
+You can hold inside the context:
+- global state
+- theme
+- application configuration
+- authenticated user name
+- user settings
+- preferred language
+- a collection of services
+
+---
+
+Before you start using
+
+First, integrating the context adds complexity. Creating the context, wrapping everything in the provider, using the useContext() in every consumer — this increases complexity.
+
+Secondly, adding context makes it more difficult to unit test the components. During unit testing, you would have to wrap the consumer components into a context provider. Including the components that are indirectly affected by the context — the ancestors of context consumers!
+
+If you only want to avoid passing some props through many levels, component composition is often a simpler solution than context.
+
+---
+
+# useReducer
+
+Is usually preferable to useState when you have complex state logic that involves multiple sub-values or when the next state depends on the previous one. useReducer also lets you optimize performance for components that trigger deep updates because you can pass dispatch down instead of callbacks.
+
+<img style="width: 500px;" src="https://dmitripavlutin.com/5c33affee33e7c40e73028fb48a8367b/diagram.svg">
+
+---
+
+```jsx {1|3-12|15|18|19-20|all}
+const initialState = {count: 0};
+
+function reducer(state, action) {
+  switch (action.type) {
+    case 'increment':
+      return {count: state.count + 1};
+    case 'decrement':
+      return {count: state.count - 1};
+    default:
+      throw new Error();
+  }
+}
+
+function Counter() {
+  const [state, dispatch] = useReducer(reducer, initialState);
+  return (
+    <>
+      Count: {state.count}
+      <button onClick={() => dispatch({type: 'decrement'})}>-</button>
+      <button onClick={() => dispatch({type: 'increment'})}>+</button>
+    </>
+  );
+}
+```
+
+---
+
+# useMemo
+
+If React must perform expensive calculations during each render (e.g. filter) the performance could be  improved using useMemo hook. 
+
+```jsx {2-4|8|15|all}
+import { useState, useMemo } from 'react';
+function factorialOf(n) {
+  return n <= 0 ? 1 : n * factorialOf(n - 1);
+}
+export function CalculateFactorial() {
+  const [number, setNumber] = useState(1);
+  const [inc, setInc] = useState(0);
+  const factorial = useMemo(() => factorialOf(number), [number]);
+  const onChange = event => {
+    setNumber(Number(event.target.value));
+  };
+  const onClick = () => setInc(i => i + 1);
+  return (
+    <div>
+      Factorial of <input type="number" value={number} onChange={onChange} /> is {factorial}
+      <button onClick={onClick}>Re-render</button>
+    </div>
+  );
+}
+```
+
+---
+
+# useCallback
+Returns a memoized version of the callback that only changes if one of the dependencies has changed. This is useful when passing callbacks to optimized child components that rely on reference equality to prevent unnecessary renders.
+
+```jsx {3-5|6|8|all}
+import { useMemo } from 'react';
+function MyComponent({ prop }) {
+  const callback = () => {
+    return 'Result';
+  };
+  const memoizedCallback = useMemo(() => callback, [prop]);
+  
+  return <ChildComponent callback={memoizedCallback} />;
+}
+```
+
+---
+
+While useMemo() or useCallback can improve the performance of the component, you have to make sure to profile the component with and without the hook. Only after that make the conclusion whether memoization worth it.
+
+When memoization is used inappropriately, it could harm the performance.
+
+
+
+---
+
+# useRef 
+Works similar like useState, but does not force component to re-render. It could be used for storing values without causing the render, or perform some interactions with other elements.
+
+```jsx {3|10|11|4-7|all}
+import React, { useRef } from 'react'
+function TextInputWithFocusButton() {
+  const inputEl = useRef(null);
+  const onButtonClick = () => {
+    // `current` points to the mounted text input element
+    inputEl.current.focus();
+  };
+  return (
+    <>
+      <input ref={inputEl} type="text" />
+      <button onClick={onButtonClick}>Focus the input</button>
+    </>
+  );
+}
+```
+
+---
+
+It could be used to store the previous state.
+
+```jsx {4-5|13|7-9|14|all}
+import React, { useRef, useState, useEffect } from 'react'
+
+function App() {
+  const [name, setName] = useState('');
+  const prevName = useRef('');
+
+  useEffect(() => {
+    prevName.current = name;
+  }, [name])
+
+  return (
+    <>
+      <input type="text" value={name} onChange={e => setName(e.target.value)} />
+      <div>My name is {name} and it used to be {prevName}</div>
+      <button onClick={onButtonClick}>Focus the input</button>
+    </>
+  );
+}
+```
+
+---
+
+# Accessibility
+Web accessibility (also referred to as a11y) is the design and creation of websites that can be used by everyone. Accessibility support is necessary to allow assistive technology to interpret web pages.
+
+Note that all aria-* HTML attributes are fully supported in JSX. Whereas most DOM properties and attributes in React are camelCased, these attributes should be hyphen-cased (also known as kebab-case, lisp-case, etc) as they are in plain HTML:
+
+```jsx {3-4|all}
+<input
+  type="text"
+  aria-label={labelText}
+  aria-required="true"
+  onChange={onchangeHandler}
+  value={inputValue}
+  name="name"
+/>
+```
+
+---
+
+# Fragments
+A common pattern in React is for a component to return multiple elements. Fragments let you group a list of children without adding extra nodes to the DOM. Fragments can have key property which is required to be set in collections. Fragments allow not to break HTML Semantics across component tree.
+
+```jsx {3,7|all}
+render() {
+  return (
+    <React.Fragment> | <> - short syntax
+      <ChildA />
+      <ChildB />
+      <ChildC />
+    </React.Fragment> | </> - short syntax
+  );
+}
+```
+
+---
+
+Semantics problem
+
+```jsx {16,19|all}
+function Table (props) {
+  render() {
+    return (
+      <table>
+        <tr>
+          <Columns />
+        </tr>
+      </table>
+    );
+  }
+}
+
+function Columns(props) {
+  render() {
+    return (
+      <div>
+        <td>Hello</td>
+        <td>World</td>
+      </div>
+    );
+  }
+}
+
+```
+
+--- 
+
+# Code splitting
+Code-Splitting is a feature supported by bundlers like Webpack, Rollup and Browserify (via factor-bundle) which can create multiple bundles that can be dynamically loaded at runtime.
+
+The best way to introduce code-splitting into your app is through the dynamic import() syntax.
+
+<section class="grid grid-cols-2 gap-4">
+
+```jsx {4-6|all}
+import { add } from './math';
+console.log(add(16, 26));
+```
+standard import
+
+</section>
+
+<section class="grid grid-cols-2 gap-4">
+
+```jsx {4-6|all}
+import("./math").then(math => {
+  console.log(math.add(16, 26));
+});
+```
+dynamic import
+
+</section>
+
+When Webpack comes across this syntax, it automatically starts code-splitting your app. If you’re using Create React App, this is already configured for you and you can start using it immediately. It’s also supported out of the box in Next.js.
+
+---
+
+The React.lazy function lets you render a dynamic import as a regular component. It supports only default imports.
+
+The lazy component should then be rendered inside a Suspense component, which allows us to show some fallback content (such as a loading indicator) while we’re waiting for the lazy component to load.
+
+```jsx {3-4|9,14|11-12|all}
+import React, { Suspense } from 'react';
+
+const OtherComponent = React.lazy(() => import('./OtherComponent'));
+const AnotherComponent = React.lazy(() => import('./AnotherComponent'));
+
+function MyComponent() {
+  return (
+    <div>
+      <Suspense fallback={<div>Loading...</div>}>
+        <section>
+          <OtherComponent />
+          <AnotherComponent />
+        </section>
+      </Suspense>
+    </div>
+  );
+}
+```
+
+---
+
+# Portals
+Portals provide a first-class way to render children into a DOM node that exists outside the DOM hierarchy of the parent component.
+
+<section class="grid grid-cols-2 gap-4">
+
+```jsx {4,6|all}
+render() {
+  // React mounts a new div and renders the children into it
+  return (
+    <div>
+      {this.props.children}
+    </div>
+  );
+}
+```
+Standard composition approach
+
+</section>
+
+<section class="grid grid-cols-2 gap-4">
+
+```jsx {6|all}
+render() {
+  // React does *not* create a new div. It renders the children into `domNode`.
+  // `domNode` is any valid DOM node, regardless of its location in the DOM.
+  return ReactDOM.createPortal(
+    this.props.children,
+    domNode
+  );
+}
+```
+Inserting a child into a different location in the DOM using portal
+
+</section>
+
+[Example](https://codepen.io/gaearon/pen/jGBWpE)
+
+---
+
+# Profiler
+
+The Profiler measures how often a React application renders and what the “cost” of rendering is. Its purpose is to help identify parts of an application that are slow and may benefit from optimizations such as memoization.
+
+```jsx {3,5,8|all}
+render(
+  <App>
+    <Profiler id="Panel" onRender={callback}>
+      <Panel {...props}>
+        <Profiler id="Content" onRender={callback}>
+          <Content {...props} />
+        </Profiler>
+        <Profiler id="PreviewPane" onRender={callback}>
+          <PreviewPane {...props} />
+        </Profiler>
+      </Panel>
+    </Profiler>
+  </App>
+);
+```
+
+---
+
+Calback function has following parameters
+
+```js
+function onRenderCallback(
+  id, // the "id" prop of the Profiler tree that has just committed
+  phase, // either "mount" (if the tree just mounted) or "update" (if it re-rendered)
+  actualDuration, // time spent rendering the committed update
+  baseDuration, // estimated time to render the entire subtree without memoization
+  startTime, // when React began rendering this update
+  commitTime, // when React committed this update
+  interactions // the Set of interactions belonging to this update
+) {
+  // Aggregate or log render timings...
+}
+```
+
+---
+
+# Refs 
+The term “render prop” refers to a technique for sharing code between React components using a prop whose value is a function.
+
+A component with a render prop takes a function that returns a React element and calls it instead of implementing its own render logic.
+
+```jsx
+<DataProvider render={data => (
+  <h1>Hello {data.target}</h1>
+)}/>
+```
+
+Libraries that use render props include React Router, Downshift and Formik.
+
+---
+
+```jsx
+import React from "react";
+
+const Cat = ({mouse}) => {
+  return (<img src="/cat.png" alt="cat" style={{ position: "absolute", left: mouse.x, top: mouse.y }} />)
+};
+
+const Mouse = (props) => {
+  const [state, setState] = React.useState();
+  const handleMouseMove = (event) => {
+    setState({ x: event.clientX, y: event.clientY});
+  };
+  return (
+    <div style={{ height: "100vh" }} onMouseMove={handleMouseMove}>
+      {props.render(state)}
+    </div>
+  );
+};
+
+const MouseTracker = () => {
+  return (
+    <div>
+      <Mouse render={(mouse) => <Cat mouse={mouse} />} />
+    </div>
+  );
+};
+
+```
+
+---
+
+# React libraries
+
+[React library list](https://www.robinwieruch.de/react-libraries/)
+
+
+---
+
+
+
+
 
 ---
 layout: center
@@ -1438,4 +1914,4 @@ hideInToc: true
         padding: 0;
         margin: 0;
     }
-</style>
+</style> 
