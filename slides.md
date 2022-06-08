@@ -23,7 +23,7 @@ hideInToc: true
 
 ---
 
-# Breaf history of react
+# Breaf history of React
  - 2004 - [ECMAScript For XML](https://svn.wso2.org/repos/wso2/tags/carbon/0.1alpha/mashup/java/xdocs/e4xquickstart.html)
  - 2010 - [XHP](https://github.com/phplang/xhp)
  - 2011 - [FaxJS by Jordan Walke](https://github.com/jordwalke/FaxJs)
@@ -36,7 +36,9 @@ hideInToc: true
 <img style="width: 350px;" src="/images/jsx-reactions.png" />
 ::right::
 ---
-
+layout: center
+hideInToc: true
+---
 # Popularity
 ---
 title: StackOverflow 
@@ -60,6 +62,9 @@ Google
 <img style="width: 700px;" src="/images/react-google.png">
 
 [Source](https://trends.google.com/trends/explore?cat=1227&date=today%205-y&q=react,jquery,angular,vue)
+
+---
+layout: two-cols
 ---
 
 # What is React?
@@ -73,8 +78,6 @@ A JavaScript library for building user interfaces.
 
 <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/a/a7/React-icon.svg/2300px-React-icon.svg.png" />
 
----
-layout: two-cols
 ---
 
 # Component-Based
@@ -836,7 +839,9 @@ The package manager will provide a method to install new dependencies (also refe
 - Removing all the files again if you want to remove the packages.
 
 ---
-
+layout: center
+hideInToc: true
+---
 # Popularity
 ---
 title: StackOverflow
@@ -850,16 +855,16 @@ hideInToc: true
 hideInToc: true
 ---
 
-StateOfJS
+[StateOfJS](https://2021.stateofjs.com/en-US/libraries/monorepo-tools)
+
 <img style="width: 500px;" src="https://stateofx-images.netlify.app/captures/js2021/en-US/monorepo_tools_experience_marimekko.png">
 
-[Source](https://2021.stateofjs.com/en-US/libraries/monorepo-tools)
 ---
 
-Google
+[Google](https://trends.google.com/trends/explore?cat=31&date=today%205-y&q=npm,yarn)
+
 <img style="width: 700px;" src="/images/packages-google.png">
 
-[Source](https://trends.google.com/trends/explore?cat=31&date=today%205-y&q=npm,yarn)
 ---
 
 # npm / pnpm 
@@ -892,6 +897,9 @@ if using pnpm 'p' letter needs to be added to the begining of each command.
 
 A bundler is a development tool that combines many JavaScript code files into a single one that is production-ready loadable in the browser. It generates a dependency graph as it traverses your first code files. This implies that beginning with the entry point you specified, the module bundler keeps track of both your source files’ dependencies and third-party dependencies. This dependency graph guarantees that all source and associated code files are kept up to date and error-free. By default bundlers does not require any configuration file at the beggining, but in some specific scenarious it is possible to add the configuration file.
 
+---
+layout: center
+hideInToc: true
 ---
 
 # Popularity
@@ -968,7 +976,9 @@ JavaScript is an interpreted programming language. It requires an engine/runtime
 [This time we have a video](https://www.destroyallsoftware.com/talks/wat)
 
 ---
-
+layout: center
+hideInToc: true
+---
 # Popularity
 ---
 title: StackOverflow
@@ -982,17 +992,15 @@ hideInToc: true
 hideInToc: true
 ---
 
-StateOfJS
-<img style="width: 700px;" src="https://stateofx-images.netlify.app/captures/js2020/en-US/javascript_flavors_experience_marimekko.png">
+[StateOfJS](https://2020.stateofjs.com/en-US/technologies/javascript-flavors)
 
-[Source](https://2020.stateofjs.com/en-US/technologies/javascript-flavors)
+<img style="width: 700px;" src="https://stateofx-images.netlify.app/captures/js2020/en-US/javascript_flavors_experience_marimekko.png">
 
 ---
 
-Google
-<img style="width: 700px;" src="/images/flavors-google.png">
+[Google](https://trends.google.com/trends/explore?cat=31&date=today%205-y&q=typescript,reason,elm,closurescript)
 
-[Source](https://trends.google.com/trends/explore?cat=31&date=today%205-y&q=typescript,reason,elm,closurescript)
+<img style="width: 700px;" src="/images/flavors-google.png">
 
 ---
 layout: two-cols
@@ -1060,7 +1068,9 @@ A software toolchain is a set of software development tools used in combination 
 <img style="width: 750px" src="https://www.saaspegasus.com/static/images/web/modern-javascript/2008-vs-2021.png">
 
 ---
-
+layout: center
+hideInToc: true
+---
 # Popularity
 ---
 title: StackOverflow
@@ -1074,16 +1084,16 @@ hideInToc: true
 hideInToc: true
 ---
 
-StateOfJS
+[StateOfJS](https://2021.stateofjs.com/en-US/libraries/back-end-frameworks)
+
 <img style="width: 500px;" src="https://stateofx-images.netlify.app/captures/js2021/en-US/back_end_frameworks_experience_marimekko.png">
 
-[Source](https://2021.stateofjs.com/en-US/libraries/back-end-frameworks)
 ---
 
-Google
+[Google](https://trends.google.com/trends/explore?cat=31&date=today%205-y&q=next%20js,gatsby,create%20react%20app)
+
 <img style="width: 700px;" src="/images/tool-chains-google.png">
 
-[Source](https://trends.google.com/trends/explore?cat=31&date=today%205-y&q=next%20js,gatsby,create%20react%20app)
 ---
 
 # Create React APP
@@ -1141,10 +1151,12 @@ npm run dev
 
 ---
 
-Practical task: create new next.js application using typescript
+Practical task: create new next.js application using typescript.
 
-
-
+- Run command "npx create-next-app nextjs-playground --use-npm --typescript --example "https://github.com/vercel/next-learn/tree/master/basics/learn-starter"
+- Transfer Todo application from static page to the new todo application
+- Improve your application with possibility to delete existing to do's. 
+- Improve your application to with possibility to mark todo as completed.
 
 ---
 
@@ -1896,17 +1908,182 @@ const MouseTracker = () => {
 ```
 
 ---
+layout: two-cols
+---
+# Testing
 
-# React libraries
+* Unit tests
+  * Small test that test a single peact of functionality (component, function, service, .etc)
+* Integration Tests
+  * Higher level tests that test how different units work together as a whole
+* Ent-to-end tests
+  * Run in a browser and test the whole application by interacting with UI
 
-[React library list](https://www.robinwieruch.de/react-libraries/)
+::right::
 
+<img style="width: 500px;" src="/images/test-types.png" >
+
+---
+layout: center
+hideInToc: true
+---
+
+<img style="width: 550px;" src="https://mir-s3-cdn-cf.behance.net/project_modules/disp/26f9d324573221.563367aa26099.jpg">
 
 ---
 
+# Popularity
+---
+title: StackOverflow
+layout: iframe
+url: https://insights.stackoverflow.com/trends?tags=enzyme%2Cjasmine%2Cjestjs%2Cmocha.js%2Creact-testing-library%2Ccypress
+preload: false
+hideInToc: true
+---
 
+---
+hideInToc: true
+---
 
+[StateOfJS](https://2021.stateofjs.com/en-US/libraries/testing)
 
+<img style="width: 500px;" src="https://stateofx-images.netlify.app/captures/js2021/en-US/testing_experience_marimekko.png">
+---
+
+[Google](https://trends.google.com/trends/explore?cat=31&date=today%205-y&q=jasmine,enzyme,jest,Testing%20library,Cypress)
+
+<img style="width: 700px;" src="/images/testing-google.png">
+
+---
+
+# Unit tests
+The backbone of testing a React application is Jest. It gives you test runner, assertion library and spying/mocking/stubbing functionalities. Everything that's needed from a comprehensive test framework.
+
+ ```js
+export const sum = (a, b) => {
+  return a + b;
+}
+ ```
+
+ ```js
+import { sum } from './sum';
+
+test('adds 1 + 2 to equal 3', () => {
+  expect(sum(1, 2)).toBe(3);
+});
+ ```
+
+---
+
+# Integration tests
+
+ React Testing Library (RTL) -- which is used within the Jest testing environment -- for a more elaborate testing library for React. RTL makes it possible to render your components and to simulate events on HTML elements. Afterward, Jest is used for the assertions on the DOM nodes.
+
+```jsx
+// __tests__/index.test.tsx
+
+import { render, screen } from '@testing-library/react'
+import Home from '../pages/index'
+import '@testing-library/jest-dom'
+
+describe('Home', () => {
+  it('renders a heading', () => {
+    render(<Home />)
+
+    const heading = screen.getByRole('heading', {
+      name: /welcome to next\.js!/i,
+    })
+
+    expect(heading).toBeInTheDocument()
+  })
+})
+```
+
+---
+
+Optionally, you add a snapshot test to keep track of any unexpected changes to your <Home /> component:
+
+```jsx
+// __tests__/snapshot.tsx
+
+import { render } from '@testing-library/react'
+import Home from '../pages/index'
+
+it('renders homepage unchanged', () => {
+  const { container } = render(<Home />)
+  expect(container).toMatchSnapshot()
+})
+```
+
+---
+
+Getting started with Jest and RTL
+
+```js
+npx create-next-app --example with-jest with-jest-app
+npm i
+npm run test
+```
+
+---
+
+# End-to-end tests
+Cypress is a next generation front end testing tool built for the modern web. We address the key pain points developers and QA engineers face when testing modern applications.
+
+<img src="/images/cypress.png">
+
+---
+
+Cypress enables you to write all types of tests:
+
+- End-to-end tests
+- Integration tests
+- Unit tests
+
+---
+
+Features
+
+- Time Travel: Cypress takes snapshots as your tests run. 
+- Debuggability: Debug directly from familiar tools like Developer Tools.
+- Automatic Waiting: Cypress automatically waits for commands and assertions before moving on. 
+- Spies, Stubs, and Clocks: Verify and control the behavior of functions, server responses, or timers. 
+- Network Traffic Control: Easily control, stub, and test edge cases without involving your server.
+- Consistent Results: Our architecture doesn’t use Selenium or WebDriver.
+- Screenshots and Videos: View screenshots taken automatically on failure, or videos of your entire test suite when run from the CLI.
+- Cross browser Testing: Run tests within Firefox and Chrome-family browsers (including Edge and Electron) locally and optimally in a Continuous Integration pipeline.
+
+---
+
+Getting started with cypress
+
+```js
+npx create-next-app@latest --example with-cypress with-cypress-app
+```
+
+---
+
+#  What to do next?
+
+I encourage you to start learning by yourself. Here is a list of good sources.
+
+[React documentation](https://reactjs.org/docs/getting-started.html)
+
+[Create React App documentation](https://create-react-app.dev/docs/getting-started)
+
+[Next JS Documentation](https://nextjs.org/learn/foundations/about-nextjs?utm_source=next-site&utm_medium=homepage-cta&utm_campaign=next-website)
+
+[NPM site](https://www.npmjs.com/)
+
+[Popular React libraries overview of 2022](https://www.robinwieruch.de/react-libraries/)
+
+[Jest documentation](https://jestjs.io/docs/getting-started)
+
+[React Testing Library documentation](https://testing-library.com/docs/react-testing-library/intro/)
+
+[Cypress Documentation](https://docs.cypress.io/guides/overview/why-cypress)
+
+[Dmitry Pavlutin blog](https://dmitripavlutin.com/)
 
 ---
 layout: center
