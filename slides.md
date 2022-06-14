@@ -23,18 +23,21 @@ hideInToc: true
 
 ---
 
-# Breaf history of React
- - 2004 - [ECMAScript For XML](https://svn.wso2.org/repos/wso2/tags/carbon/0.1alpha/mashup/java/xdocs/e4xquickstart.html)
- - 2010 - [XHP](https://github.com/phplang/xhp)
+# Brief history of React
+ - 2004 - [E4X - ECMAScript For XML](https://svn.wso2.org/repos/wso2/tags/carbon/0.1alpha/mashup/java/xdocs/e4xquickstart.html)
+ - 2010 - [XHP](https://github.com/facebookarchive/xhp-php5-extension)
  - 2011 - [FaxJS by Jordan Walke](https://github.com/jordwalke/FaxJs)
  - 2012 - Used in FaceBook and Instagram
  - 2013 - [React Open source release](https://www.youtube.com/watch?v=GW0rj4sNH2w)
- - 2015 - React Stable version, React Native releases
+ - 2015 - React Stable version and React Native releases
  - 2019 - [In v16.8 the Hooks are introduced](https://reactjs.org/blog/2019/02/06/react-v16.8.0.html)
+
+---
+layout: center
 ---
 
-<img style="width: 350px;" src="/images/jsx-reactions.png" />
-::right::
+<img style="width: 400px;" src="/images/jsx-reactions.png" />
+
 ---
 layout: center
 hideInToc: true
@@ -49,29 +52,24 @@ hideInToc: true
 ---
 
 ---
-hideInToc: true
+
+[State of JS](https://2021.stateofjs.com/en-US/libraries/front-end-frameworks/)
+<img style="width: 550px;" src="https://stateofx-images.netlify.app/captures/js2021/en-US/front_end_frameworks_experience_marimekko.png">
+
 ---
 
-StateOfJS
-<img style="width: 500px;" src="https://stateofx-images.netlify.app/captures/js2021/en-US/front_end_frameworks_experience_marimekko.png">
-
-[Source](https://2021.stateofjs.com/en-US/libraries/front-end-frameworks/)
----
-
-Google
+[Google](https://trends.google.com/trends/explore?cat=1227&date=today%205-y&q=react,jquery,angular,vue)
 <img style="width: 700px;" src="/images/react-google.png">
-
-[Source](https://trends.google.com/trends/explore?cat=1227&date=today%205-y&q=react,jquery,angular,vue)
 
 ---
 layout: two-cols
 ---
 
 # What is React?
-A JavaScript library for building user interfaces. 
+A JavaScript <b>library</b> for building user <b>interfaces</b>. 
 
-- Declarative
 - Component-Based
+- Declarative
 - Immutable
 
 ::right::
@@ -81,7 +79,7 @@ A JavaScript library for building user interfaces.
 ---
 
 # Component-Based
-Build encapsulated components that manage their own state, then compose them to make complex UIs.
+Build <b>encapsulated components</b> that manage their <b>own state</b>, then <b>compose them</b> to make <b>complex UIs</b>.
 
 Since component logic is written in JavaScript instead of templates, you can easily pass rich data through your app and keep state out of the DOM.
 
@@ -89,31 +87,28 @@ Since component logic is written in JavaScript instead of templates, you can eas
 ---
 
 # Declarative
-Developer should focus on data transformation and leave DOM manipulation for the react.
+Developer should <b>focus</b> on <b>data transformation</b> and leave <b>DOM</b> manipulation for the <b>react</b>.
 
 <img style="width: 550px;" src="/images/virtual-dom.png" />
 ---
 
 # Immutable 
-The existing data should not be mutated, but instead new state should be created.
+The existing <b>data</b> should <b>not</b> be <b>mutated</b>, but instead <b>new state</b> should be <b>created</b>.
 
 <img style="width: 600px;" src="https://velopert.com/wp-content/uploads/2017/12/react-love-immutable.png">
 ---
 
-
-
-
-# JSX syntax
-JSX is syntax extension to JavaScript. 
+# JSX
+Is <b>syntax extension</b> to JavaScript. 
 - Describes what the UI should look like. 
 - Comes with the full power of JavaScript.
 - Produces React “elements”
 
-Example: JSX syntax
+<i>Example: JSX syntax</i>
 ```jsx 
 const element = <h1 className="greeting">Hello, world!</h1>;
 ```
-is translated to
+<i>is translated to</i>
 
 ```js 
   const element = React.createElement(
@@ -124,23 +119,23 @@ is translated to
 ```
 ---
 
-JSX syntax
 <section class="grid grid-cols-2 gap-4">
 
-  ```jsx {2}
+  ```jsx {2|all}
   const name = 'Josh Perez';
   const element = <h1>Hello, {name}</h1>;
   ```
-  Embedding Expressions in JSX.
+  <i>Embedding Expressions in JSX.</i>
 
 </section>
 
 <section class="grid grid-cols-2 gap-4">
 
-  ```jsx {6|8|all}
+  ```jsx {6|8|1-3|all}
   function formatName(user) {
     return user.firstName + ' ' + user.lastName;
   }
+
   function getGreeting(user) {
     if (user) {
       return <h1>Hello, {formatName(user)}!</h1>;
@@ -148,16 +143,16 @@ JSX syntax
     return <h1>Hello, Stranger.</h1>;
   }
   ```
-  JSX is an Expression Too.
+  <i>JSX is an Expression Too.</i>
 
 </section>
 
 <section class="grid grid-cols-2 gap-4">
 
-  ```jsx
+  ```jsx {1|all}
   const element = <img src={user.avatarUrl}></img>;
   ```
-  Specifying Attributes with JSX.
+  <i>Specifying Attributes with JSX.</i>
 
 </section>
 
@@ -171,20 +166,21 @@ JSX syntax
     </div>
   );
   ```
-  Specifying Children with JSX.
+  <i>Specifying Children with JSX.</i>
 
 </section>
 ---
 
 # Elements
-Elements are the smallest building blocks of React apps.
-Unlike browser DOM elements, React elements are plain objects, and are cheap to create. React DOM takes care of updating the DOM to match the React elements.
+Are the <b>smallest building blocks</b> of React apps.
 
-Let’s say there is a div element somewhere in your HTML file
+Unlike browser DOM elements, <b>React elements</b> are <b>plain objects</b>, and are <b>cheap to create</b>. <b>React DOM</b> takes care of <b>updating the DOM</b> to <b>match</b> the <b>React elements</b>.
+
+<i>Let’s say there is a div element somewhere in your HTML file</i>
 ```html
 <div id="root"></div>
 ```
-To render a React element, first pass the DOM element to ReactDOM.createRoot(), then pass the React element to root.render()
+<i>To render a React element, first pass the DOM element to ReactDOM.createRoot(), then pass the React element to root.render()</i>
 ```jsx {1-3|4|5|all}
 const root = ReactDOM.createRoot(
   document.getElementById('root')
@@ -197,15 +193,15 @@ root.render(element);
 ---
 
 # Components
-Components let you split the UI into independent, reusable pieces, and think about each piece in isolation. 
+Let you <b>split</b> the <b>UI</b> into <b>independent</b>, <b>reusable</b> pieces, and <b>think</b> about <b>each piece</b> in <b>isolation</b>. 
 
-Function component
+<i>Function component</i>
 ```jsx
 function Welcome(props) {
   return <h1>Hello, {props.name}</h1>;
 }
 ```
-Class component
+<i>Class component</i>
 ```jsx
 class Welcome extends React.Component {
   render() {
@@ -213,12 +209,12 @@ class Welcome extends React.Component {
   }
 }
 ```
-Components must be defined by starting with capital letter. This is required for React to distinguish them from standard HTML elements.
+Components must be <b>defined</b> by <b>starting</b> with <b>capital letter</b>. This is <b>required</b> for React to <b>distinguish</b> them from <b>standard HTML elements</b>.
 
 ---
 
 # Reusing the components
-Components can refer to other components in their output. This lets us use the same component abstraction for any level of detail. Components are designed to be isolated so always try to split big parts into smaller components.
+Components can <b>refer</b> to <b>other</b> components in their output. This lets us <b>use</b> the <b>same component</b> abstraction for <b>any level</b> of detail. <b>Components</b> are <b>designed</b> to be <b>isolated</b> so always try to <b>split big parts</b> into <b>smaller components</b>.
 
 ```jsx {1-3|8-10|all}
 function Welcome(props) {
@@ -238,14 +234,14 @@ function App() {
 ---
 
 # Props
-When React sees an element representing a user-defined component, it passes JSX attributes and children to this component as a single object. Props are treated as readonly. This allows React to determine the difference and let know if the props are different.
+When <b>React</b> sees an element representing a <b>user-defined component</b>, it <b>passes JSX attributes and children</b> to this component as a <b>single object</b>. <b>Props</b> are treated as <b>readonly</b>. This allows React to <b>determine</b> the <b>difference</b> and let know if the <b>props are different</b>.
 
 <section class="grid grid-cols-2 gap-4">
 
-  ```jsx
+  ```jsx 
   <MyComponent message="hello world">
   ```
-  Passing props as a string
+  <i>Passing props as a string</i>
 
 </section>
 
@@ -255,7 +251,7 @@ When React sees an element representing a user-defined component, it passes JSX 
   let greeting = "Hello world!";
   return <MyComponent message={greeting}>
   ```
-  Passing props as an object
+  <i>Passing props as an object</i>
 
 </section>
 
@@ -264,7 +260,7 @@ When React sees an element representing a user-defined component, it passes JSX 
   ```jsx
   <MyComponent foo={1 + 2 + 3 + 4}>
   ```
-  Passing props as an evaluation
+  <i>Passing props as an evaluation</i>
 
 </section>
 
@@ -281,20 +277,18 @@ When React sees an element representing a user-defined component, it passes JSX 
     return <div>{props.numer} is an {description} number</div>
   }
   ```
-  Using props as a for condition inside component.
+  <i>Using props as a for condition inside component.</i>
 
 </section>
 
 ---
-
-Props
 
 <section class="grid grid-cols-2 gap-4">
 
   ```jsx
   <MyTextBox autocomplete />
   ```
-  Props with no value defaults to true
+  <i>Props with no value defaults to true</i>
 
 </section>
 
@@ -310,7 +304,7 @@ Props
     return <Greeting {...props} />;
   }
   ```
-  Passing props using spread operator
+  <i>Passing props using spread operator</i>
 
 </section>
 
@@ -323,22 +317,22 @@ Props
   }
   return <User deleteCalback={deleteUser} userId={user.id}>
   ```
-  Passing props a callback function
+  <i>Passing props a callback function</i>
 </section>
 
 ---
 
 # State 
-The state is used to create encapsulated components which could have its own data and how its changing. When then model has changed React ensures that necessary DOM elements get updated. 
+Is used to create <b>encapsulated components</b> which <b>have</b> its <b>own data</b> and <b>manage</b> how its <b>changing</b>. When then <b>model</b> has <b>changed</b>, <b>React updates necessary DOM elements</b>. 
 
-In React v16.8 the hooks were introduced. They let to use state and other React features without writing a class. As the developers are encouraged to write function components the class components are still supported.
+In React <b>v16.8</b> the <b>hooks</b> were <b>introduced</b>. They allow to <b>use state</b> and <b>other</b> React <b>features without</b> writing a <b>class</b>. As the developers are <b>encouraged</b> to write <b>function</b> components the <b>class</b> components are still <b>supported</b>.
 
-There is a big difference how the state management and lifecycle works in class and function components. We will primarely primarily focus on the function components but it is important to understand how class component works aswell.
+There is a <b>big difference</b> how the <b>lifecycle</b> and <b>state management</b> works in <b>class</b> and <b>function</b> components. We will <b>primarily focus</b> on the <b>function</b> components but it is important to understand how class component works aswell.
 
 ---
 
 # State management and Lifecycle in Class components
-```jsx {4|12-16|6-8|9-11|17-22|all}
+```jsx {2-5|6-8|12-16|17-22|9-11|all}
 class Clock extends React.Component {
   constructor(props) {
     super(props);
@@ -365,14 +359,14 @@ class Clock extends React.Component {
 ---
 
 # Rules of state management and Lifecycle in Class components
-- The default state must be defined in class constructor.
-- The componentDidMount method is called after the component output is rendered into DOM
-- The componentWillUnmount is called when Clock component is removed from the DOM.
-- To update the state this.setState method should be used.
-- All event functions which are used should be binded.
-- State and functions are accessed by using this keyword.
+- The <b>default state</b> must be defined in class <b>constructor</b>.
+- The <b>componentDidMount</b> method is called <b>after</b> the component output is <b>rendered into DOM</b>
+- The <b>componentWillUnmount</b> is called when component is <b>removed from the DOM</b>.
+- To <b>update</b> the state <b>this.setState</b> method should be used.
+- All <b>event functions</b> which are used should be <b>binded</b>.
+- <b>State</b> and <b>functions</b> are accessed by using <b>this</b> keyword.
 
-```jsx 
+```jsx {2|8|3|2,3,8,11|all}
 contructor(props) {
   this.state = {address: ''};
   this.onTextChanged = this.onTextChanged.bind(this);
@@ -388,7 +382,6 @@ function onTextChanged(e) {
 ---
 
 <iframe width="800" height="500" src="https://www.youtube.com/embed/dpw9EHDh2bM?start=1061&end=268" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
-
 
 ---
 
@@ -415,33 +408,34 @@ function Clock(props) {
 ---
 
 # Rules of state management and Lifecycle in function components
-The hooks were introduced in React v16.8 and allowed to use state and other React features without writing a class.
-- Hooks do provide a more direct API to the React concepts.
-- The same hook can be used more than once.
-- Hooks are executed in order from top to the bottom.
-- Hooks reduce the boilerplate of class components.
-- Developers can write own hooks and reuse accross the many components (useYourHookName)
-- Function components are easier to test.
+The <b>hooks</b> were introduced in <b>React v16.8</b> and allowed to use <b>state</b> and other React <b>features</b> <b>without</b> writing a class.
+- Hooks do <b>provide a more direct API</b> to the <b>React concepts</b>.
+- The <b>same hook</b> can be <b>used more than once</b>.
+- Hooks are <b>executed in order</b> from top to the bottom.
+- Hooks <b>reduce</b> the <b>boilerplate</b> of <b>class</b> components.
+- Developers can <b>write own hooks</b> and <b>reuse</b> accross the many <b>components</b> (useYourHookName)
+- Function components are <b>easier to test</b>.
 
-```jsx
+```jsx {2|7|3-6|all}
 function Address() {
   const [address, setAddress] = React.useState('');
   function onTextChanged(e) {
     e.preventDefault();
     setAddress(e.target.value);
   }
-  return <input type='text' onChange={onTextChanged} value={this.state.address} />
+  return <input type='text' onChange={onTextChanged} value={address} />
 }
 ```
 ---
 
 # useState
-This hook allows to add the local state inside functional component. React will preserve its state between re-renders. 
-The hook is the function which is taking the default value as a parameter and returning pair of:
-- the current state value
-- a function which lets to update the state
+This hook <b>allows</b> to add the local <b>state</b> inside <b>functional</b> component. React will <b>preserve</b> its <b>state</b> between <b>re-renders</b>. 
 
-This hook can use objects, arrays or other primitive types.
+It is the <b>function</b> which is taking the <b>default value</b> as a parameter and <b>returning</b> pair of:
+- the <b>current state value</b>
+- a <b>function</b> which lets to <b>update</b> the <b>state</b>
+
+<i>It can use objects, arrays or other primitive types.</i>
 
 ```jsx {3-5|all}
   function ExampleWithManyStates() {
@@ -456,9 +450,9 @@ This hook can use objects, arrays or other primitive types.
 ---
 
 # useEffect
-Data fetching, subscriptions, or manually changing the DOM from React components are called “side effects” (“effects”) because they can affect other components and can’t be done during rendering.
+<b>Data fetching</b>, <b>subscriptions</b>, or <b>manually changing</b> the DOM from React components are called <b>“side effects”</b> because they can <b>affect other components</b> and <b>can’t</b> be done during <b>rendering</b>.
 
-The <b>useEffect</b> serves the same purpose as <i>componentDidMount</i>, <i>componentDidUpdate</i>, and <i>componentWillUnmount</i> in React classes, but unified into a single API.
+The <b>useEffect</b> serves the same purpose as <i>componentDidMount</i>, <i>componentDidUpdate</i>, and <i>componentWillUnmount</i> in React classes, but unified into a <b>single</b> API.
 
 <section class="grid grid-cols-2 gap-4">
 
@@ -467,13 +461,13 @@ The <b>useEffect</b> serves the same purpose as <i>componentDidMount</i>, <i>com
     document.title = `You clicked ${count} times`;
   });
   ```
-  Without cleanup and runs on every render 
+  <i>Runs on <b>every</b> render</i>
 
 </section>
 
 <section class="grid grid-cols-2 gap-4">
 
-  ```jsx {7-9|5,|11|all}
+  ```jsx {7-9|5|11|all}
   useEffect(() => {
     function handleStatusChange(status) {
       setIsOnline(status.isOnline);
@@ -486,14 +480,28 @@ The <b>useEffect</b> serves the same purpose as <i>componentDidMount</i>, <i>com
     // Only re-subscribe if props.friend.id changes
   }, [props.friend.id]); 
   ```
-  With cleanup, useEffect will be invoked again only if friend id changes 
+  - <i><b>return function</b> acts <b>cleanup</b>, useEffect will be <b>invoked</b> again only <b>if friend id changes</b>.</i>
+  - <i>If leaving <b>blank array</b>, it will be triggered <b>only once</b>.</i>
 
 </section>
 
 ---
 
+# State vs Props
+
+<b>Props</b> and <b>state</b> are both plain <b>JavaScript objects</b>. While <b>both</b> hold <b>information</b> that <b>influences</b> the <b>output of render</b>, they <b>are different</b> in <b>one important way</b>: <b>props</b> get <b>passed</b> to the component (<i>similar to function parameters</i>) whereas <b>state</b> is <b>managed</b> within the component (<i>similar to variables declared within a function</i>).
+
+React is all about <b>one-way data flow down the component hierarchy</b>. It may <b>not</b> be immediately <b>clear</b> which <b>component</b> should <b>own what state</b>. This is often the <b>most challenging part to understand</b>, so follow these steps to figure it out:
+
+- <b>Identify every component</b> that <b>renders</b> something based on that <b>state</b>.
+- <b>Find</b> a <b>common owner</b> component (<i>a <b>single</b> component <b>above</b> all the components that <b>need</b> the <b>state</b> in the <b>hierarchy</b></i>).
+- Either the <b>common owner</b> or another <b>component higher</b> up in the <b>hierarchy</b> should <b>own the state</b>.
+- If you <b>can’t find</b> a component where it <b>makes sense</b> to <b>own</b> the <b>state</b>, <b>create a new component</b> solely for <b>holding</b> the <b>state</b> and <b>add</b> it somewhere in the hierarchy <b>above</b> the <b>common owner</b> component.
+
+---
+
 # Events
-Handling events with React elements is very similar to handling events on DOM elements. There are some syntax differences.
+Handling <b>events</b> with React elements is very <b>similar</b> to handling events on <b>DOM</b> elements but there are some <b>syntax differences</b>.
 
 <section class="grid grid-cols-2 gap-4">
 
@@ -502,7 +510,7 @@ Handling events with React elements is very similar to handling events on DOM el
     Activate Lasers
   </button>
   ```
-  HTML 
+  <i>HTML</i>
 
 </section>
 
@@ -513,50 +521,46 @@ Handling events with React elements is very similar to handling events on DOM el
     Activate Lasers
   </button>
   ```
-  - React events are named using camelCase, rather than lowercase.
-  - With JSX you pass a function as the event handler, rather than a string.
+  - <i>React events are <b>named</b> using <b>camelCase</b>, rather than lowercase.</i>
+  - <i>With JSX you pass a <b>function</b> as the <b>event handler</b>, rather than a <b>string</b>.</i>
 
 </section>
 ---
 
-Another difference is that you cannot return false to prevent default behavior in React. You must call preventDefault explicitly. For example, with plain HTML, to prevent the default form behavior of submitting, you can write:
+Another <b>difference</b> is that you <b>cannot</b> <i>return false;</i> to <b>prevent default behavior</b> in React. You must call preventDefault explicitly. 
 
-<section class="grid grid-cols-2 gap-4">
+<i>For example, with plain HTML, to prevent the default form behavior of submitting, you can write:</i>
 
-  ```html
- <form onsubmit="console.log('You clicked submit.'); return false">
-    <button type="submit">Submit</button>
-  </form>
-  ```
-  HTML 
+```html
+<form onsubmit="console.log('You clicked submit.'); return false">
+  <button type="submit">Submit</button>
+</form>
+```
 
-</section>
+<i>In react preventDefault() function should be called from event object</i>
 
-<section class="grid grid-cols-2 gap-4">
-
-  ```jsx
-  function Form() {
-    function handleSubmit(e) {
-      e.preventDefault();
-      console.log('You clicked submit.');
-    }
-
-    return (
-      <form onSubmit={handleSubmit}>
-        <button type="submit">Submit</button>
-      </form>
-    );
+```jsx
+function Form() {
+  function handleSubmit(e) {
+    e.preventDefault();
+    console.log('You clicked submit.');
   }
-  ```
-  React
 
-</section>
+  return (
+    <form onSubmit={handleSubmit}>
+      <button type="submit">Submit</button>
+    </form>
+  );
+}
+```
 
 ---
 
-Inside a loop, it is common to want to pass an extra parameter to an event handler. For example, if id is the row ID, either of the following would work.
+Inside a <b>loop</b>, it is common to <b>pass</b> an <b>extra parameter</b> to an <b>event handler</b>. 
 
-```jsx{2-5|10|all}
+<i>For example, if id is the row ID, either of the following would work.</i>
+
+```jsx{9-11|2-5|all}
 function Rows() {
   function deleteRow(id, e) {
     e.preventDefault();
@@ -573,7 +577,7 @@ function Rows() {
 }
 ```
 
-Note! It is Ok to use arrow function within the loop, but is better to avoid its usage in single components. In most cases, this is fine. However, if this callback is passed as a prop to lower components, those components might do an extra re-rendering. 
+<i><b>Note!</b> It is <b>Ok</b> to use <b>arrow function</b> within the <b>loop</b>, but is better to <b>avoid</b> its usage in <b>single</b> elements. In most cases, this is fine. However, if this <b>callback</b> is <b>passed</b> as a <b>prop</b> to <b>lower components</b>, those components might <b>do</b> an <b>extra re-rendering</b>.</i>
 
 ---
 
@@ -588,7 +592,7 @@ Mostly used events
 
   <input type="submit" onClick={onClick}>
   ```
-  Occurs when the user clicks on an element
+  <i>Occurs when the user clicks on an element</i>
 
 </section>
 
@@ -600,7 +604,7 @@ Mostly used events
   }
   <input type="text" onChange={onTextChanged}>
   ```
-  Occurs when the value of an element has been changed
+  <i>Occurs when the value of an element has been changed</i>
 
 </section>
 
@@ -612,7 +616,7 @@ Mostly used events
   }
   <input type="text" onFocus={onFocus}>
   ```
-  Occurs when an element gets focus
+  <i>Occurs when an element gets focus</i>
 
 </section>
 
@@ -624,14 +628,14 @@ Mostly used events
   }
   <input type="text" onBlur={saveInput}>
   ```
-  Occurs when an object loses focus
+  <i>Occurs when an object loses focus</i>
 
 </section>
 
 ---
 
 # Conditional rendering
-In React, you can create distinct components that encapsulate behavior you need. Then, you can render only some of them, depending on the state or props of your application.
+In React, you can create <b>distinct</b> components that encapsulate <b>behavior</b> you need. Then, you can <b>render only some</b> of them, <b>depending</b> on the <b>state</b> or <b>props</b> of your application.
 
 <section class="grid grid-cols-2 gap-4">
 
@@ -644,7 +648,7 @@ function Greeting(props) {
   return <GuestGreeting />;
 }
 ```
-using return with if statement
+<i>using <b>return</b> with <b>if</b> statement</i>
 
 </section>
 
@@ -663,7 +667,7 @@ function WarningBanner(props) {
   );
 }
 ```
-Preventing component from rendering
+<i><b>Preventing</b> component from rendering</i>
 
 </section>
 
@@ -688,7 +692,7 @@ return (
 );
 ```
 
-Using as a variable
+<i>Using as a <b>variable</b></i>
 
 </section>
 
@@ -708,14 +712,15 @@ return (
 );
 ```
 
-Using inline If-Else with Conditional Operator
+<i>Using <b>inline If-Else</b> with Conditional Operator</i>
 
 </section>
 
 ---
 
 # Lists
-When working with the arrays the map() function should be used to create new object array. 
+
+When working with the <b>arrays</b> the <i>map()</i> <b>function</b> should be used to create <b>new elements</b>. 
 
 ```jsx {3-5|7|all}
 function NumberList(props) {
@@ -729,8 +734,8 @@ function NumberList(props) {
 }
 ```
 
-Inside the return function map() function should be used as well.
-```jsx {3-6}
+The <i>map()</i> function can be used in the <b>return</b> <b>function</b> aswell.
+```jsx
 return (
     <ul>
       {numbers.map((number) =>
@@ -742,9 +747,9 @@ return (
 
 ---
 
-Keys help React identify which items have changed, are added, or are removed. Use a string that uniquely identifies a list item among its siblings. Don't use indexes for keys if the order of items may change. This can negatively impact performance and may cause issues with component state.
+<b>Keys</b> help React <b>identify</b> which items have <b>changed</b>, are <b>added</b>, or are <b>removed</b>. Use a <b>string</b> that <b>uniquely identifies</b> a list item among its <b>siblings</b>. <b>Don't</b> use <b>indexes</b> for <b>keys</b> if the order of items <b>may change</b>. This can <b>negatively impact performance</b> and <b>may cause issues with component state</b>.
 
-```jsx {2-4,6,10-12,14|2,5-6,10-11,13-14|all}
+```jsx {1-4,6-7,9-12,14-20|1-3,5-7,9-11,13-20|all}
 function ListItem(props) {
   const value = props.value;
   return (
@@ -771,18 +776,18 @@ function NumberList(props) {
 
 # Practical task "Static site"
 
-Create static page and implement todo functionality using techniques you learned.
-1. Create new HTML page and add standard HTML elements
-2. Register following script links:
+Create <b>static page</b> and <b>implement todo</b> functionality using techniques you learned.
+1. Create new <b>HTML page</b> and add <b>standard HTML elements</b>
+2. Register following <b>script links</b>:
   - script src="https://unpkg.com/react@17/umd/react.development.js"
   - script src="https://unpkg.com/react-dom@17/umd/react-dom.development.js
   - script src="https://unpkg.com/@babel/standalone/babel.min.js
   - script type="text/jsx"
-3. Render react app displaying "Hello World!"
-4. Mock todos in array
-5. Create component which show todo count
-6. Create component which displays todo
-7. Create component which allows to add new todo
+3. <b>Render react app</b> displaying <b>"Hello World!"</b>
+4. <b>Mock some todos</b> in <b>array</b>
+5. <b>Create component</b> which <b>shows todo count</b>
+6. <b>Create component</b> which <b>displays todos</b>
+7. <b>Create component</b> which allow to <b>add new todos</b>
 
 ---
 
@@ -800,9 +805,7 @@ layout: two-cols
 
 # NodeJS
 
-Node.js® is a JavaScript runtime built on Chrome's V8 JavaScript engine. As an asynchronous event-driven JavaScript runtime, Node.js is designed to build scalable network applications.
-
-[download link](https://nodejs.org/en/)
+[Node.js®](https://nodejs.org/en/) is a <b>JavaScript runtime</b> built on <b>Chrome's V8 JavaScript engine</b>. As an <b>asynchronous event-driven JavaScript runtime</b>, Node.js is <b>designed</b> to <b>build</b> scalable <b>network applications</b>.
 
 ```js
 const http = require('http');
@@ -829,14 +832,14 @@ server.listen(port, hostname, () => {
 
 # Package managers
 
-The package manager will provide a method to install new dependencies (also referred to as "packages"), manage where packages are stored on your file system, and offer capabilities for you to publish your own packages.
+The package manager will <b>provide</b> a method to <b>install</b> new <b>dependencies</b> (also referred to as "packages"), <b>manage</b> where packages are <b>stored</b> on your file system, and offer capabilities for you to <b>publish</b> your own packages.
 
-- Finding all the correct package JavaScript files.
-- Checking them to make sure they don't have any known vulnerabilities.
-- Downloading them and putting them in the correct locations in your project.
-- Writing the code to include the package(s) in your application (this tends to be done using JavaScript modules, another subject that is worth reading up on and understanding).
-- Doing the same thing for all of the packages' sub-dependencies, of which there could be tens, or hundreds. 
-- Removing all the files again if you want to remove the packages.
+- <b>Finding</b> all the correct package JavaScript files.
+- <b>Checking</b> them to make sure they don't have any known <b>vulnerabilities</b>.
+- <b>Downloading</b> them and putting them in the correct locations in your project.
+- <b>Writing</b> the code to include the package(s) in your application (<i>import</i> / <i>export</i>).
+- Doing the same thing for <b>all of the packages' sub-dependencies</b>, of which there could be tens, or hundreds. 
+- <b>Removing</b> all the files again if you want to remove the packages.
 
 ---
 layout: center
@@ -855,7 +858,7 @@ hideInToc: true
 hideInToc: true
 ---
 
-[StateOfJS](https://2021.stateofjs.com/en-US/libraries/monorepo-tools)
+[State of JS](https://2021.stateofjs.com/en-US/libraries/monorepo-tools)
 
 <img style="width: 500px;" src="https://stateofx-images.netlify.app/captures/js2021/en-US/monorepo_tools_experience_marimekko.png">
 
@@ -869,7 +872,7 @@ hideInToc: true
 
 # npm / pnpm 
 
-Npm is installed with NodeJS automatically. If you want to use pnpm, it needs to be installed using npm first.
+Npm is <b>installed</b> with NodeJS <b>automatically</b>. If you want to use <b>pnpm</b>, it needs to be <b>installed</b> using <b>npm</b> first.
 
 Most popular commands:
 
@@ -885,7 +888,7 @@ npm start
 npm build
 ```
 
-if using pnpm 'p' letter needs to be added to the begining of each command.
+if using <b>pnpm</b> <i>'p'</i> letter needs to be added to the <b>begining of each command</b>.
 
 ---
 
@@ -895,7 +898,7 @@ if using pnpm 'p' letter needs to be added to the begining of each command.
 
 # Bundlers
 
-A bundler is a development tool that combines many JavaScript code files into a single one that is production-ready loadable in the browser. It generates a dependency graph as it traverses your first code files. This implies that beginning with the entry point you specified, the module bundler keeps track of both your source files’ dependencies and third-party dependencies. This dependency graph guarantees that all source and associated code files are kept up to date and error-free. By default bundlers does not require any configuration file at the beggining, but in some specific scenarious it is possible to add the configuration file.
+A bundler is a development <b>tool></b> that <b>combines many</b> JavaScript code <b>files</b> into a <b>single one</b> file that is <b>production-ready</b> loadable in the <b>browser</b>. It generates a <b>dependency graph</b> as it traverses your <b>first code files</b>. This implies that beginning with the <b>entry point</b> you specified, the module bundler keeps track of both your <b>source files</b>’ dependencies and <b>third-party dependencies</b>. This dependency graph <b>guarantees</b> that <b>all source</b> and <b>associated code files</b> are kept <b>up to date</b> and <b>error-free</b>. By <b>default</b> bundlers <b>does not require</b> any <b>configuration file</b> at the beggining, but in some specific scenarios it is possible to add the <b>configuration</b> file.
 
 ---
 layout: center
@@ -915,29 +918,27 @@ hideInToc: true
 hideInToc: true
 ---
 
-StateOfJS
+[State of JS](https://2021.stateofjs.com/en-US/libraries/build-tools)
 <img style="width: 500px;" src="https://stateofx-images.netlify.app/captures/js2021/en-US/build_tools_experience_marimekko.png">
 
-[Source](https://2021.stateofjs.com/en-US/libraries/build-tools)
 ---
 
-Google
+[Google](https://trends.google.com/trends/explore?cat=31&date=today%205-y&q=webpack,gulp,browserify,vite)
 <img style="width: 700px;" src="/images/bundlers-google.png">
 
-[Source](https://trends.google.com/trends/explore?cat=31&date=today%205-y&q=webpack,gulp,browserify,vite)
 ---
 
 # Webpack
-Most of the popular fraweworks are using webpack as the default bundler.
+Most of the popular fraweworks are using <b>webpack</b> as the <b>default bundler</b>.
 
-At its core, webpack is a static module bundler for modern JavaScript applications. When webpack processes your application, it internally builds a dependency graph from one or more entry points and then combines every module your project needs into one or more bundles, which are static assets to serve your content from.
+At its core, webpack is a <b>static module bundler</b> for modern JavaScript applications. When webpack processes your application, it internally builds a dependency graph from one or more entry points and then combines every module your project needs into one or more bundles, which are static assets to serve your content from.
 
 <img style="width: 650px" src="https://www.saaspegasus.com/static/images/web/modern-javascript/js-pipeline-with-django.png">
 
 ---
 
 # Babel
-Babel is a toolchain that is mainly used to convert ECMAScript 2015+ code into a backwards compatible version of JavaScript in current and older browsers or environments. 
+Babel is a <b>toolchain</b> that is mainly used to <b>convert ECMAScript 2015+ (ES6)</b> code into a <b>backwards compatible version of JavaScript</b> in current and older browsers or environments. 
 - Transform syntax
 - Polyfill features that are missing in your target environment
 - Source code transformations (codemods)
@@ -969,7 +970,7 @@ React.createElement("button", {
 
 # Javascript flavors
 
-JavaScript is an interpreted programming language. It requires an engine/runtime to actually do anything. Some JavaScript engines interpret code until the engine recognizes that compilation would help performance. It will compile portions of the code to achieve better performance. It is an implementation detail of the engine/runtime, not the language.
+JavaScript is an <b>interpreted programming language</b>. It requires an <b>engine/runtime</b> to actually do anything. Some JavaScript engines <b>interpret code</b> until the engine <b>recognizes</b> that compilation would help <b>performance</b>. It will compile portions of the code to achieve <b>better performance</b>. It is an <b>implementation</b> detail of the <b>engine/runtime</b>, <b>not the language</b>. 
 
 <img style="width: 600px;" src="https://miro.medium.com/max/700/1*XCd11j_E0N5Po1oKQxMDLw.png">
 
@@ -992,7 +993,7 @@ hideInToc: true
 hideInToc: true
 ---
 
-[StateOfJS](https://2020.stateofjs.com/en-US/technologies/javascript-flavors)
+[State of JS](https://2020.stateofjs.com/en-US/technologies/javascript-flavors)
 
 <img style="width: 700px;" src="https://stateofx-images.netlify.app/captures/js2020/en-US/javascript_flavors_experience_marimekko.png">
 
@@ -1008,7 +1009,7 @@ layout: two-cols
 
 # Typescript
 
-Typescript is a superset of Javascript.
+Typescript is a <b>superset</b> of Javascript. It is a <b>strongly typed</b> programming <b>language</b> that builds on JavaScript.
 
 - Expands the language of Javascript with types, enums, decorators, interfaces and more
 - Auto-complete
@@ -1052,7 +1053,7 @@ function evaluateCandidate(someCandidate: Candidate): boolean { ... };
 ---
 
 # ESLint
-ESLint is a tool for identifying and reporting on patterns found in ECMAScript/JavaScript code, with the goal of making code more consistent and avoiding bugs.
+ESLint is a <b>tool</b> for <b>identifying</b> and <b>reporting</b> on <b>patterns</b> found in <b>ECMAScript/JavaScript code</b>, with the goal of <b>making</b> code <b>more consistent</b> and <b>avoiding bugs</b>.
 
 - Statically analyzes your code to quickly find problems. ESLint is built into most text editors.
 - Many problems ESLint finds can be automatically fixed. 
@@ -1063,7 +1064,7 @@ ESLint is a tool for identifying and reporting on patterns found in ECMAScript/J
 ---
 
 # Tool-chains
-A software toolchain is a set of software development tools used in combination with one another to complete complex software development tasks or to deliver a software product.
+A software <b>toolchain</b> is a set of software development <b>tools</b> used in <b>combination</b> with one <b>another</b> to <b>complete complex</b> software development <b>tasks</b> or to <b>deliver</b> a <b>software product</b>.
 
 <img style="width: 750px" src="https://www.saaspegasus.com/static/images/web/modern-javascript/2008-vs-2021.png">
 
@@ -1084,7 +1085,7 @@ hideInToc: true
 hideInToc: true
 ---
 
-[StateOfJS](https://2021.stateofjs.com/en-US/libraries/back-end-frameworks)
+[State of JS](https://2021.stateofjs.com/en-US/libraries/back-end-frameworks)
 
 <img style="width: 500px;" src="https://stateofx-images.netlify.app/captures/js2021/en-US/back_end_frameworks_experience_marimekko.png">
 
@@ -1098,7 +1099,7 @@ hideInToc: true
 
 # Create React APP
 
-Cons:
+<b>Cons</b>:
 - Best for learning
 - Use if creating single page app
 - Client side only
@@ -1107,7 +1108,7 @@ Cons:
 - Webpack, babel, typescript, Eslint under the hood
 - easy to upgrade  <i>npm install react-scripts@latest</i> 
 
-Pros:
+<b>Pros</b>:
 - Is not friendly for SEO
 - One big JS bundle
 - Possible slow route transitions
@@ -1122,7 +1123,7 @@ cd my-app
 npm start
 ```
 
-[In detail](https://create-react-app.dev/docs/getting-started/)
+[More in detail](https://create-react-app.dev/docs/getting-started/)
 ---
 
 # Next JS
@@ -1147,30 +1148,30 @@ npx create-next-app@latest --typescript
 npm run dev
 ```
 
-[In detail](https://nextjs.org/docs/getting-started)
+[More in detail](https://nextjs.org/docs/getting-started)
 
 ---
 
-Practical task: create new next.js application using typescript.
+Practical task: create <b>new</b> next.js application using <b>typescript</b>.
 
 - Run command "npx create-next-app nextjs-playground --use-npm --typescript --example "https://github.com/vercel/next-learn/tree/master/basics/learn-starter"
-- Transfer Todo application from static page to the new todo application
-- Improve your application with possibility to delete existing to do's. 
-- Improve your application to with possibility to mark todo as completed.
+- <b>Transfer</b> Todo application from static page to the new application
+- <b>Improve</b> your application with possibility to <b>delete existing to do's</b>. 
+- <b>Improve</b> your application to with possibility to <b>mark todo as completed</b>.
 
 ---
 
 # Forms
 
-- HTML form elements work a bit differently from other DOM elements in React, because form elements naturally keep some internal state. 
-- In React, mutable state is typically kept in the state property of components, and only updated with useState(). 
-- We can combine the two by making the React state be the “single source of truth”. 
-- Then the React component that renders a form also controls what happens in that form on subsequent user input. 
-- An input form element whose value is controlled by React in this way is called a “controlled component”.
+- HTML form elements work a bit <b>differently</b> from <b>other</b> DOM elements in React, because <b>form</b> elements naturally <b>keep</b> some <b>internal state</b>. 
+- In React, <b>mutable state</b> is typically kept in the <b>state property of components</b>, and <b>only updated with <i>useState()</i></b>. 
+- We can combine the two by making the React state be the <b>"single source of truth"</b>. 
+- Then the React component that <b>renders</b> a <b>form</b> also <b>controls</b> what <b>happens</b> in that form on subsequent <b>user input</b>. 
+- An <b>input form element</b> whose value is <b>controlled</b> by React in this way is called a <b>"controlled component"</b>.
 
 ---
 
-```jsx {2-3|13,16|5-8|11|all}
+```jsx {2-3|13,16|11|5-8|all}
 function LoginForm() {
   const [username, setUsername] = React.useState('');
   const [password, setPassword] = React.useState('');
@@ -1228,7 +1229,7 @@ function LoginForm() {
 
 ---
 
-Create custom hook which will handle value update and automatically binds to onChange event.
+Create <b>custom hook</b> which will handle value <b>update</b> and <b>automatically binds</b> to <b>onChange event</b>.
 
 ```jsx {2|4-6|8-11|all}
 const useInput = (initialValue) => {
@@ -1247,7 +1248,7 @@ const useInput = (initialValue) => {
 
 ---
 
-Reuse created hook to simplify code in form component
+<b>Reuse</b> created <b>custom hook</b> to <b>simplify</b> code in form component
 
 ```jsx {2-3|13,16|11|5-8|all}
 function LoginForm() {
@@ -1276,11 +1277,11 @@ function LoginForm() {
 ---
 
 # Lifting State Up
-Often, several components need to reflect the same changing data. We recommend lifting the shared state up to their closest common ancestor. 
+Often, <b>several</b> components need to <b>reflect</b> the same changing data. It is <b>recommended</b> lifting the <b>shared state</b> up to their <b>closest common ancestor</b>. 
 
-This common problem is really obvious while working with arrays. While trying to split everything to small components the new issue appears. Multiple components rely on the same data and all components should be updated when the data changes.
+This common <b>problem</b> is really obvious while <b>working</b> with <b>arrays</b>. While trying to <b>split</b> everything to <b>small components</b> the new issue appears. <b>Multiple</b> components <b>rely</b> on the <b>same data</b> and all components should be <b>updated</b> when the data <b>changes</b>.
 
-```jsx
+```jsx {1-3|5-13|all}
 function TodoCount({ todos }) {
   return <div>Total Todos: {todos.length}</div>;
 }
@@ -1298,7 +1299,7 @@ function TodoList({ todos }) {
 
 ---
 
-```jsx
+```jsx {2|5-7|12-25|all}
 function App() {
   const [todos, setTodos] = React.useState(["item 1", "item 2", "item 3"]);
   return (
@@ -1329,7 +1330,7 @@ function AddTodo({ setTodos }) {
 ---
 
 # Composition
-React has a powerful composition model, and it is recommended using composition instead of inheritance to reuse code between components.
+React has a <b>powerful composition</b> model, and it is <b>recommended</b> using composition <b>instead of inheritance</b> to <b>reuse code</b> between components.
 
 ```jsx {4|all}
 function FancyBorder(props) {
@@ -1358,7 +1359,7 @@ function WelcomeDialog() {
 
 ---
 
-While this is less common, sometimes you might need multiple “holes” in a component. In such cases you may come up with your own convention instead of using children
+While this is less <b>common</b>, sometimes you might need <b>multiple</b> “holes” in a component. In such cases you may come up with <b>your own convention</b> instead of using children.
 
 ```jsx {5,8|16-18|all}
 function SplitPane(props) {
@@ -1415,7 +1416,7 @@ function WelcomeDialog() {
 
 ---
 
-Composition and Specialization works together
+<b>Composition</b> and <b>Specialization</b> works together
 
 ```jsx {15-18|4-6|all}
 function Dialog(props) {
@@ -1446,7 +1447,7 @@ function SignUpDialog(props) {
 ---
 
 # Context
-The React context provides data to components no matter how deep they are in the components tree. The context is used to manage global data, e.g. global state, theme, services, user settings, and more.
+The React context <b>provides data</b> to components no matter <b>how deep</b> they are in the <b>components tree</b>. The context is <b>used</b> to <b>manage global data</b>, e.g. global state, theme, services, user settings, and more.
 
 <img style="width: 400px;" src="https://dmitripavlutin.com/90649ae4bdf379c482ad24e0dd220bc4/react-context-3.svg" />
 
@@ -1458,7 +1459,7 @@ The React context provides data to components no matter how deep they are in the
 import { createContext } from 'react';
 const Context = createContext('Default Value');
 ```
-Creating the context
+<i>Creating the context</i>
 
 </section>
 
@@ -1474,7 +1475,7 @@ function Main() {
   );
 }
 ```
-Providing the context
+<i>Providing the context</i>
 
 </section>
 
@@ -1495,15 +1496,15 @@ function MyComponent() {
   );
 }
 ```
-Consuming the context
+<i>Consuming the context</i>
 
 </section>
 
 ---
 
-Use cases
+<b>Use cases</b>
 
-The main idea of using the context is to allow your components to access some global data and re-render when that global data is changed. Context solves the props drilling problem: when you have to pass down props from parents to children.
+The <b>main idea</b> of using the context is to <b>allow</b> your <b>components</b> to <b>access</b> some <b>global data</b> and <b>re-render</b> when that <b>global data</b> is <b>changed</b>. Context <b>solves</b> the <b>props drilling problem</b>: when you have to pass down props from parents to children.
 
 You can hold inside the context:
 - global state
@@ -1516,19 +1517,19 @@ You can hold inside the context:
 
 ---
 
-Before you start using
+<b>Before you start using!</b>
 
-First, integrating the context adds complexity. Creating the context, wrapping everything in the provider, using the useContext() in every consumer — this increases complexity.
+First, <b>integrating</b> the context <b>adds complexity</b>. <b>Creating</b> the context, <b>wrapping</b> everything <b>in</b> the <b>provider</b>, <b>using</b> the <i>useContext()</i> in every <b>consumer</b> — this <b>increases complexity</b>.
 
-Secondly, adding context makes it more difficult to unit test the components. During unit testing, you would have to wrap the consumer components into a context provider. Including the components that are indirectly affected by the context — the ancestors of context consumers!
+Secondly, <b>adding</b> context <b>makes</b> it more <b>difficult</b> to <b>unit test</b> the components. <b>During</b> unit testing, you would have to <b>wrap</b> the <b>consumer</b> components into a <b>context provider</b>. <b>Including</b> the components that are <b>indirectly affected</b> by the context — the <b>ancestors</b> of context consumers!
 
-If you only want to avoid passing some props through many levels, component composition is often a simpler solution than context.
+If you <b>only</b> want to <b>avoid passing</b> some <b>props</b> through <b>many levels</b>, component <b>composition</b> is often a <b>simpler solution</b> than context.
 
 ---
 
 # useReducer
 
-Is usually preferable to useState when you have complex state logic that involves multiple sub-values or when the next state depends on the previous one. useReducer also lets you optimize performance for components that trigger deep updates because you can pass dispatch down instead of callbacks.
+Is usually <b>preferable</b> to <i>useState</i> when you have <b>complex</b> state <b>logic</b> that <b>involves</b> multiple <b>sub-values</b> or when the <b>next state depends on the previous one</b>. useReducer also lets you <b>optimize performance</b> for components that <b>trigger deep updates</b> because you can pass <b>dispatch</b> down <b>instead of callbacks</b>.
 
 <img style="width: 500px;" src="https://dmitripavlutin.com/5c33affee33e7c40e73028fb48a8367b/diagram.svg">
 
@@ -1564,7 +1565,7 @@ function Counter() {
 
 # useMemo
 
-If React must perform expensive calculations during each render (e.g. filter) the performance could be  improved using useMemo hook. 
+If React must perform <b>expensive calculations</b> during <b>each render</b> (e.g. filter) the <b>performance</b> could be <b>improved</b> using <i>useMemo()</i> hook. 
 
 ```jsx {2-4|8|15|all}
 import { useState, useMemo } from 'react';
@@ -1591,32 +1592,77 @@ export function CalculateFactorial() {
 ---
 
 # useCallback
-Returns a memoized version of the callback that only changes if one of the dependencies has changed. This is useful when passing callbacks to optimized child components that rely on reference equality to prevent unnecessary renders.
+Returns a <b>memoized</b> version of the <b>callback</b> that <b>only changes</b> if one of the <b>dependencies</b> has <b>changed</b>. This is useful when <b>passing callbacks</b> to <b>optimized child</b> components that rely on <b>reference equality</b> to prevent unnecessary renders.
 
-```jsx {3-5|6|8|all}
-import { useMemo } from 'react';
-function MyComponent({ prop }) {
-  const callback = () => {
-    return 'Result';
-  };
-  const memoizedCallback = useMemo(() => callback, [prop]);
-  
-  return <ChildComponent callback={memoizedCallback} />;
-}
+---
+
+<b>Problem:</b> the Todo component re-renders when todos does not change, because addTodo function gets recreated...
+
+``` jsx {17|9|all}
+import { useState } from "react";
+import ReactDOM from "react-dom/client";
+import Todos from "./Todos";
+
+const App = () => {
+  const [count, setCount] = useState(0);
+  const [todos, setTodos] = useState([]);
+
+  const increment = () => { setCount((c) => c + 1); };
+  const addTodo = () => { setTodos((t) => [...t, "New Todo"]); };
+
+  return (
+    <>
+      <Todos todos={todos} addTodo={addTodo} />
+      <div> 
+        Count: {count} 
+        <button onClick={increment}>+</button>
+      </div>
+    </>
+  );
+};
+
 ```
 
 ---
 
-While useMemo() or useCallback can improve the performance of the component, you have to make sure to profile the component with and without the hook. Only after that make the conclusion whether memoization worth it.
+<b>Solution</b>
 
-When memoization is used inappropriately, it could harm the performance.
+```jsx {10-12|all}
+import { useState, useCallback } from "react";
+import ReactDOM from "react-dom/client";
+import Todos from "./Todos";
 
+const App = () => {
+  const [count, setCount] = useState(0);
+  const [todos, setTodos] = useState([]);
 
+  const increment = () => { setCount((c) => c + 1); };
+  const addTodo = useCallback(() => {
+    setTodos((t) => [...t, "New Todo"]);
+  }, [todos]);
+
+  return (
+    <>
+      <Todos todos={todos} addTodo={addTodo} />
+      <div>
+        Count: {count}
+        <button onClick={increment}>+</button>
+      </div>
+    </>
+  );
+};
+```
+
+---
+
+While <b>useMemo()</b> or <b>useCallback()</b> can <b>improve the performance</b> of the component, you have to <b>make sure</b> to <b>profile</b> the component <b>with and without the hook</b>. Only after that make the <b>conclusion</b> whether <b>memoization worth</b> it.
+
+When <b>memoization</b> is used <b>inappropriately</b>, it could <b>harm</b> the <b>performance</b>.
 
 ---
 
 # useRef 
-Works similar like useState, but does not force component to re-render. It could be used for storing values without causing the render, or perform some interactions with other elements.
+Works <b>similar</b> like <i>useState()</i>, but <b>does not force</b> component to <b>re-render</b>. It could be <b>used</b> for <b>storing values</b> <b>without</b> causing the <b>re-render</b>, or <b>perform</b> some <b>interactions</b> with <b>other elements</b>.
 
 ```jsx {3|10|11|4-7|all}
 import React, { useRef } from 'react'
@@ -1637,7 +1683,7 @@ function TextInputWithFocusButton() {
 
 ---
 
-It could be used to store the previous state.
+It could be <b>used</b> to store the <b>previous state</b> aswell.
 
 ```jsx {4-5|13|7-9|14|all}
 import React, { useRef, useState, useEffect } from 'react'
@@ -1663,9 +1709,9 @@ function App() {
 ---
 
 # Accessibility
-Web accessibility (also referred to as a11y) is the design and creation of websites that can be used by everyone. Accessibility support is necessary to allow assistive technology to interpret web pages.
+Web accessibility (also referred to as a11y) is the <b>design</b> and <b>creation</b> of <b>websites</b> that can be used by <b>everyone</b>. Accessibility support is <b>necessary</b> to allow <b>assistive technology</b> to <b>interpret</b> web pages.
 
-Note that all aria-* HTML attributes are fully supported in JSX. Whereas most DOM properties and attributes in React are camelCased, these attributes should be hyphen-cased (also known as kebab-case, lisp-case, etc) as they are in plain HTML:
+Note that <b>all</b> aria-* HTML <b>attributes</b> are fully <b>supported</b> in JSX. Whereas most DOM properties and attributes in React are camelCased, these attributes should be <b>hyphen-cased</b> (also known as kebab-case, lisp-case, etc) as they are in plain HTML:
 
 ```jsx {3-4|all}
 <input
@@ -1681,7 +1727,7 @@ Note that all aria-* HTML attributes are fully supported in JSX. Whereas most DO
 ---
 
 # Fragments
-A common pattern in React is for a component to return multiple elements. Fragments let you group a list of children without adding extra nodes to the DOM. Fragments can have key property which is required to be set in collections. Fragments allow not to break HTML Semantics across component tree.
+A common pattern in React is for a component to return <b>multiple</b> elements. Fragments let you <b>group</b> a <b>list</b> of <b>children without</b> adding <b>extra nodes</b> to the DOM. Fragments can have <b>key</b> property which is <b>required</b> to be set in <b>collections</b>. Fragments allow <b>not</b> to <b>break</b> HTML <b>Semantics</b> across component tree.
 
 ```jsx {3,7|all}
 render() {
@@ -1697,7 +1743,7 @@ render() {
 
 ---
 
-Semantics problem
+<b>Semantics problem</b>
 
 ```jsx {16,19|all}
 function Table (props) {
@@ -1728,9 +1774,9 @@ function Columns(props) {
 --- 
 
 # Code splitting
-Code-Splitting is a feature supported by bundlers like Webpack, Rollup and Browserify (via factor-bundle) which can create multiple bundles that can be dynamically loaded at runtime.
+Code-Splitting is a <b>feature</b> supported by bundlers like <i>Webpack, Rollup and Browserify</i> (via factor-bundle) which can <b>create multiple bundles</b> that can be <b>dynamically loaded</b> at runtime.
 
-The best way to introduce code-splitting into your app is through the dynamic import() syntax.
+The best way to introduce code-splitting into your app is through the <b>dynamic</b> <i>import()</i> syntax.
 
 <section class="grid grid-cols-2 gap-4">
 
@@ -1738,7 +1784,7 @@ The best way to introduce code-splitting into your app is through the dynamic im
 import { add } from './math';
 console.log(add(16, 26));
 ```
-standard import
+<i>standard import</i>
 
 </section>
 
@@ -1749,17 +1795,17 @@ import("./math").then(math => {
   console.log(math.add(16, 26));
 });
 ```
-dynamic import
+<i>dynamic import</i>
 
 </section>
 
-When Webpack comes across this syntax, it automatically starts code-splitting your app. If you’re using Create React App, this is already configured for you and you can start using it immediately. It’s also supported out of the box in Next.js.
+When <b>bundler</b> comes across this syntax, it <b>automatically starts</b> code-splitting your app. If you’re using <b>Create React App</b>, this is already <b>configured</b> for you and you can start using it immediately. It’s also supported out of the box in <b>Next.js</b>.
 
 ---
 
-The React.lazy function lets you render a dynamic import as a regular component. It supports only default imports.
+The <i>React.lazy</i> function lets you <b>render</b> a <b>dynamic import</b> as a regular component. <b>It supports only default imports</b>.
 
-The lazy component should then be rendered inside a Suspense component, which allows us to show some fallback content (such as a loading indicator) while we’re waiting for the lazy component to load.
+The lazy component <b>should</b> then be <b>rendered</b> inside a <i>Suspense</i> component, which allows us to show some <b>fallback</b> content (<i>such as a loading indicator</i>) while we’re waiting for the lazy component to load.
 
 ```jsx {3-4|9,14|11-12|all}
 import React, { Suspense } from 'react';
@@ -1784,7 +1830,7 @@ function MyComponent() {
 ---
 
 # Portals
-Portals provide a first-class way to render children into a DOM node that exists outside the DOM hierarchy of the parent component.
+Portals <b>provide</b> a first-class <b>way</b> to <b>render children</b> into a DOM node that <b>exists outside</b> the DOM <b>hierarchy of the parent</b> component.
 
 <section class="grid grid-cols-2 gap-4">
 
@@ -1798,7 +1844,7 @@ render() {
   );
 }
 ```
-Standard composition approach
+<i>Standard composition approach</i>
 
 </section>
 
@@ -1814,7 +1860,7 @@ render() {
   );
 }
 ```
-Inserting a child into a different location in the DOM using portal
+<i>Inserting a child into a different location in the DOM using portal</i>
 
 </section>
 
@@ -1824,7 +1870,7 @@ Inserting a child into a different location in the DOM using portal
 
 # Profiler
 
-The Profiler measures how often a React application renders and what the “cost” of rendering is. Its purpose is to help identify parts of an application that are slow and may benefit from optimizations such as memoization.
+The Profiler <b>measures</b> how often a React application <b>renders</b> and what the <b>“cost”</b> of rendering <b>is</b>. Its <b>purpose</b> is to <b>help identify parts</b> of an application that are <b>slow</b> and may <b>benefit</b> from <b>optimizations</b> such as <b>memoization</b>.
 
 ```jsx {3,5,8|all}
 render(
@@ -1863,10 +1909,10 @@ function onRenderCallback(
 
 ---
 
-# Refs 
-The term “render prop” refers to a technique for sharing code between React components using a prop whose value is a function.
+# Render props 
+The term “render prop” refers to a <b>technique</b> for <b>sharing code</b> between React components using a <b>prop</b> whose value is a <b>function</b>.
 
-A component with a render prop takes a function that returns a React element and calls it instead of implementing its own render logic.
+A component with a render prop <b>takes</b> a <b>function</b> that <b>returns</b> a React element and <b>calls it instead of implementing its own render logic</b>.
 
 ```jsx
 <DataProvider render={data => (
@@ -1912,11 +1958,11 @@ layout: two-cols
 ---
 # Testing
 
-* Unit tests
+* <b>Unit tests</b>
   * Small test that test a single peact of functionality (component, function, service, .etc)
-* Integration Tests
+* <b>Integration Tests</b>
   * Higher level tests that test how different units work together as a whole
-* Ent-to-end tests
+* <b>End-to-end tests</b>
   * Run in a browser and test the whole application by interacting with UI
 
 ::right::
@@ -1945,7 +1991,7 @@ hideInToc: true
 hideInToc: true
 ---
 
-[StateOfJS](https://2021.stateofjs.com/en-US/libraries/testing)
+[State of JS](https://2021.stateofjs.com/en-US/libraries/testing)
 
 <img style="width: 500px;" src="https://stateofx-images.netlify.app/captures/js2021/en-US/testing_experience_marimekko.png">
 ---
@@ -1957,7 +2003,7 @@ hideInToc: true
 ---
 
 # Unit tests
-The backbone of testing a React application is Jest. It gives you test runner, assertion library and spying/mocking/stubbing functionalities. Everything that's needed from a comprehensive test framework.
+The <b>backbone</b> of testing a React application is <b><i>Jest</i></b>. It gives <b>test runner</b>, <b>assertion library</b> and <b>spying/mocking/stubbing</b> functionalities. Everything that's needed from a comprehensive test framework.
 
  ```js
 export const sum = (a, b) => {
@@ -1977,7 +2023,7 @@ test('adds 1 + 2 to equal 3', () => {
 
 # Integration tests
 
- React Testing Library (RTL) -- which is used within the Jest testing environment -- for a more elaborate testing library for React. RTL makes it possible to render your components and to simulate events on HTML elements. Afterward, Jest is used for the assertions on the DOM nodes.
+ React Testing Library (RTL) -- which is used within the <i>Jest</i> testing environment -- for a more elaborate testing library for React. RTL makes it possible to <b>render</b> your components and to <b>simulate events</b> on HTML elements. Afterward, <i>Jest</i> is used for the <b>assertions</b> on the DOM nodes.
 
 ```jsx
 // __tests__/index.test.tsx
@@ -2001,7 +2047,7 @@ describe('Home', () => {
 
 ---
 
-Optionally, you add a snapshot test to keep track of any unexpected changes to your <Home /> component:
+Optionally, you add a <b>snapshot</b> test to <b>keep track</b> of any <b>unexpected changes</b> to your component:
 
 ```jsx
 // __tests__/snapshot.tsx
@@ -2028,13 +2074,13 @@ npm run test
 ---
 
 # End-to-end tests
-Cypress is a next generation front end testing tool built for the modern web. We address the key pain points developers and QA engineers face when testing modern applications.
+Cypress is a next generation front end testing <b>tool</b> built for the modern web. We address the key pain points developers and QA engineers face when testing modern applications.
 
 <img src="/images/cypress.png">
 
 ---
 
-Cypress enables you to write all types of tests:
+Cypress <b>enables</b> you to write <b>all types</b> of tests:
 
 - End-to-end tests
 - Integration tests
@@ -2042,30 +2088,32 @@ Cypress enables you to write all types of tests:
 
 ---
 
-Features
+<b>Features</b>
 
-- Time Travel: Cypress takes snapshots as your tests run. 
-- Debuggability: Debug directly from familiar tools like Developer Tools.
-- Automatic Waiting: Cypress automatically waits for commands and assertions before moving on. 
-- Spies, Stubs, and Clocks: Verify and control the behavior of functions, server responses, or timers. 
-- Network Traffic Control: Easily control, stub, and test edge cases without involving your server.
-- Consistent Results: Our architecture doesn’t use Selenium or WebDriver.
-- Screenshots and Videos: View screenshots taken automatically on failure, or videos of your entire test suite when run from the CLI.
-- Cross browser Testing: Run tests within Firefox and Chrome-family browsers (including Edge and Electron) locally and optimally in a Continuous Integration pipeline.
+- <b>Time Travel</b>: Cypress takes snapshots as your tests run. 
+- <b>Debuggability</b>: Debug directly from familiar tools like Developer Tools.
+- <b>Automatic Waiting</b>: Cypress automatically waits for commands and assertions before moving on. 
+- <b>Spies, Stubs, and Clocks</b>: Verify and control the behavior of functions, server responses, or timers. 
+- <b>Network Traffic Control</b>: Easily control, stub, and test edge cases without involving your server.
+- <b>Consistent Results</b>: Our architecture doesn’t use Selenium or WebDriver.
+- <b>Screenshots and Videos</b>: View screenshots taken automatically on failure, or videos of your entire test suite when run from the CLI.
+- <b>Cross browser Testing</b>: Run tests within Firefox and Chrome-family browsers (including Edge and Electron) locally and optimally in a Continuous Integration pipeline.
 
 ---
 
-Getting started with cypress
+<b>Getting started with cypress</b>
 
 ```js
 npx create-next-app@latest --example with-cypress with-cypress-app
+npm i
+npm run test
 ```
 
 ---
 
 #  What to do next?
 
-I encourage you to start learning by yourself. Here is a list of good sources.
+<b>I encourage you to start learning by yourself. Here is a list of good sources.</b>
 
 [React documentation](https://reactjs.org/docs/getting-started.html)
 
