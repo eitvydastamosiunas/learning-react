@@ -487,19 +487,6 @@ The <b>useEffect</b> serves the same purpose as <i>componentDidMount</i>, <i>com
 
 ---
 
-# State vs Props
-
-<b>Props</b> and <b>state</b> are both plain <b>JavaScript objects</b>. While <b>both</b> hold <b>information</b> that <b>influences</b> the <b>output of render</b>, they <b>are different</b> in <b>one important way</b>: <b>props</b> get <b>passed</b> to the component (<i>similar to function parameters</i>) whereas <b>state</b> is <b>managed</b> within the component (<i>similar to variables declared within a function</i>).
-
-React is all about <b>one-way data flow down the component hierarchy</b>. It may <b>not</b> be immediately <b>clear</b> which <b>component</b> should <b>own what state</b>. This is often the <b>most challenging part to understand</b>, so follow these steps to figure it out:
-
-- <b>Identify every component</b> that <b>renders</b> something based on that <b>state</b>.
-- <b>Find</b> a <b>common owner</b> component (<i>a <b>single</b> component <b>above</b> all the components that <b>need</b> the <b>state</b> in the <b>hierarchy</b></i>).
-- Either the <b>common owner</b> or another <b>component higher</b> up in the <b>hierarchy</b> should <b>own the state</b>.
-- If you <b>can’t find</b> a component where it <b>makes sense</b> to <b>own</b> the <b>state</b>, <b>create a new component</b> solely for <b>holding</b> the <b>state</b> and <b>add</b> it somewhere in the hierarchy <b>above</b> the <b>common owner</b> component.
-
----
-
 # Events
 Handling <b>events</b> with React elements is very <b>similar</b> to handling events on <b>DOM</b> elements but there are some <b>syntax differences</b>.
 
@@ -768,6 +755,123 @@ function NumberList(props) {
     <ul>
       {listItems}
     </ul>
+  );
+}
+```
+
+---
+layout: two-cols
+---
+
+# Thinking in React
+
+React can <b>change</b> how you <b>think</b> about the <b>designs</b> you look at and the apps you <b>build</b>. Where once you might have seen a <b>forest</b>, after working with React, you will appreciate the <b>individual trees</b>. React makes it easier to <b>think</b> in <b>design systems</b> and <b>UI states</b>.
+
+<i>Imagine your API returns you this following data structure</i>
+
+```json
+[
+  { category: "Fruits", price: "$1", stocked: true, name: "Apple" },
+  { category: "Fruits", price: "$1", stocked: true, name: "Dragonfruit" },
+  { category: "Fruits", price: "$2", stocked: false, name: "Passionfruit" },
+  { category: "Vegetables", price: "$2", stocked: true, name: "Spinach" },
+  { category: "Vegetables", price: "$4", stocked: false, name: "Pumpkin" },
+  { category: "Vegetables", price: "$1", stocked: true, name: "Peas" }
+]
+```
+
+::right::
+
+<i>And following mockup</i>
+
+<img style="width: 300px;" src="https://beta.reactjs.org/images/docs/s_thinking-in-react_ui.png" />
+
+---
+layout: two-cols
+---
+<b>1. Break the UI into a component hierarchy</b>
+
+1. <i>FilterableProductTable</i> (grey) contains the entire app.
+2. <i>SearchBar</i> (blue) receives the user input.
+3. <i>ProductTable</i> (lavander) displays and filters the list according to the user input.
+4. <i>ProductCategoryRow</i> (green) displays a heading for each category.
+5. <i>ProductRow</i> (yellow) displays a row for each product.
+
+
+::right::
+<img style="width: 500px;" src="https://beta.reactjs.org/images/docs/s_thinking-in-react_ui_outline.png">
+
+<b>Final hierarchy</b>
+* FilterableProductTable
+    * SearchBar
+    * ProductTable
+      * ProductCategoryRow
+      * ProductRow
+
+---
+
+<b>2. Build a static  version</b>
+
+When component hierarchy is <b>decided</b> start <b>implementing</b> your app. The <b>easiest</b> way to do this is to make an apllication which <b>renders</b> the whole <b>structure without any interactivity</b>. Building a <b>static</b> version requires a lot of <b>typing and no thinking</b>, but <b>adding interactivity requires</b> a <b>lot of thinking</b> and not a lot of typing.
+
+To <b>build</b> a <b>static</b> version of your app that <b>renders</b> your <b>data model</b>, you’ll want to <b>build</b> components that <b>reuse other</b> components and <b>pass data using props</b>. <b>Don’t use state</b> at all to build this <b>static</b> version.
+
+You can either build <b>"top down"</b> by starting with building the components higher up in the hierarchy (<i>like FilterableProductTable</i>) or <b>"bottom up"</b> by working from components lower down (<i>like ProductRow</i>). In <b>simpler</b> examples, it’s usually <b>easier</b> to go <b>top-down</b>, and on <b>larger projects</b>, it’s <b>easier</b> to go <b>bottom-up</b>.
+
+---
+
+<b>3. Find minimal but complete representation of UI state</b>
+
+To  make the <b>UI interactive</b>, you need to let <b>users change</b> your underlying <b>data model</b>. You will <b>use state</b> for this.
+
+<b>Think</b> of state as the <b>minimal set</b> of <b>changing data</b> that your <b>app needs</b> to remember. The most important principle for structuring state is to keep it [DRY (Don’t Repeat Yourself)](https://en.wikipedia.org/wiki/Don%27t_repeat_yourself). <b>Figure out</b> the <b>absolute minimal</b> representation of the <b>state</b> your <b>application needs</b> and <b>compute everything else</b> on-demand.
+
+
+<i>Let's distiguish what is the state and what is the props</i>
+
+1. The original <b>list of products</b> is passed in as <b>props</b>, so it’s <b>not state</b>.
+2. The <b>search text</b> seems to be <b>state</b> since it <b>changes over time</b> and <b>can’t be computed</b> from anything.
+3. The <b>value</b> of the <b>checkbox</b> seems to be <b>state</b> since it <b>changes over time</b> and <b>can’t be computed</b> from anything.
+4. The <b>filtered list</b> of products <b>isn’t state</b> because it can be <b>computed</b> by taking the <b>original list</b> of products and <b>filtering</b> it according to the <b>search text</b> and value of the <b>checkbox</b>.
+5. This means <b>only</b> the <b>search text</b> and the <b>value of the checkbox</b> are <b>state</b>!
+
+---
+
+<b>4. Identify where your state should live</b>
+
+After <b>identifying</b> your app’s <b>minimal state</b> data, you need to <b>identify</b> which component is <b>responsible</b> for <b>changing</b> this state, or <b>owns</b> the <b>state</b>.
+
+React is all about <b>one-way data flow down the component hierarchy</b>. It may <b>not</b> be immediately <b>clear</b> which <b>component</b> should <b>own what state</b>. This is often the <b>most challenging part to understand</b>, so follow these steps to figure it out:
+
+1. <b>Identify every component</b> that <b>renders</b> something based on that <b>state</b>.
+2. <b>Find</b> a <b>common owner</b> component (<i>a <b>single</b> component <b>above</b> all the components that <b>need</b> the <b>state</b> in the <b>hierarchy</b></i>).
+3. <b>Decide</b> where the <b>state should live</b>:
+    1. Often, you can <b>put</b> the state <b>directly</b> into their <b>common parent</b>.
+    2. You can also <b>put</b> the state <b>into</b> some component <b>above</b> their <b>common parent</b>.
+    3. If you <b>can’t find</b> a component where it <b>makes sense</b> to <b>own the state</b>, <b>create a new component</b> solely for <b>holding the state</b> and <b>add it</b> somewhere in the <b>hierarchy above</b> the <b>common parent component</b>.
+
+---
+
+<b>5. Add inverse data flow</b>
+
+Currently app renders <b>correctly</b> with <b>props</b> and <b>state</b> flowing <b>down the hierarchy</b>. But to <b>change</b> the <b>state</b> according to <b>user input</b>, you will need to <b>support data flowing the other way</b>. This means the <b>components deep in the hierarchy need to update the state</b>. React makes this data flow explicit, but it requires a little more typing than two-way data binding. You need to <b>send</b> the state setter <b>functions</b> created in useState() as a <b>callbacks</b> to the <b>child components</b> via <b>props</b>.
+
+```jsx {2,3|7-11|12-15|all}
+function FilterableProductTable({ products }) {
+  const [filterText, setFilterText] = useState('');
+  const [inStockOnly, setInStockOnly] = useState(false);
+  return (
+    <div>
+      <SearchBar 
+        filterText={filterText} 
+        inStockOnly={inStockOnly} 
+        onFilterTextChange={setFilterText} 
+        onInStockOnlyChange={setInStockOnly} />
+      <ProductTable 
+        products={products} 
+        filterText={filterText}
+        inStockOnly={inStockOnly} />
+    </div>
   );
 }
 ```
