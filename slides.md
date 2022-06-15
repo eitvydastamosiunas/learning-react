@@ -177,16 +177,17 @@ Are the <b>smallest building blocks</b> of React apps.
 Unlike browser DOM elements, <b>React elements</b> are <b>plain objects</b>, and are <b>cheap to create</b>. <b>React DOM</b> takes care of <b>updating the DOM</b> to <b>match</b> the <b>React elements</b>.
 
 <i>Let’s say there is a div element somewhere in your HTML file</i>
+
 ```html
 <div id="root"></div>
 ```
 <i>To render a React element, first pass the DOM element to ReactDOM.createRoot(), then pass the React element to root.render()</i>
+
 ```jsx {1-3|4|5|all}
-const root = ReactDOM.createRoot(
-  document.getElementById('root')
+ReactDOM.render(
+  <h1>Hello world!</h1>,
+  document.getElementById("root")
 );
-const element = <h1>Hello, world</h1>;
-root.render(element);
 ```
 
 <b>[Task: Fix application to display user info](https://codepen.io/gaearon/pen/PGEjdG?editors=1010)</b>
@@ -196,12 +197,14 @@ root.render(element);
 Let you <b>split</b> the <b>UI</b> into <b>independent</b>, <b>reusable</b> pieces, and <b>think</b> about <b>each piece</b> in <b>isolation</b>. 
 
 <i>Function component</i>
+
 ```jsx
 function Welcome(props) {
   return <h1>Hello, {props.name}</h1>;
 }
 ```
 <i>Class component</i>
+
 ```jsx
 class Welcome extends React.Component {
   render() {
@@ -895,6 +898,12 @@ Create <b>static page</b> and <b>implement todo</b> functionality using techniqu
 
 ---
 
+<b>Example</b>
+
+<img style="width: 500px;" src="/images/static-react.png">
+
+---
+
 # Modern Development Environment
 
 <img style="width: 800px" src="https://miro.medium.com/max/1400/1*bbxDiplpyPrwg-g7GXC-FA.png">
@@ -1256,12 +1265,22 @@ npm run dev
 
 ---
 
-Practical task: create <b>new</b> next.js application using <b>typescript</b>.
+<b>Practical task</b>: create <b>new</b> next.js application using <b>typescript</b>.
 
-- Run command "npx create-next-app nextjs-playground --use-npm --typescript --example "https://github.com/vercel/next-learn/tree/master/basics/learn-starter"
-- <b>Transfer</b> Todo application from static page to the new application
-- <b>Improve</b> your application with possibility to <b>delete existing to do's</b>. 
-- <b>Improve</b> your application to with possibility to <b>mark todo as completed</b>.
+- <b>Run command</b> "npx create-next-app --use-npm --typescript
+- <b>Transfer</b> Todo application from static page to <b>new application</b> page in next js
+- <b>Split</b> your application into multiple component files
+- <b>Improve</b> application to <b>delete existing todos</b>. 
+- <b>Improve</b> application to <b>mark todo as completed</b>.
+- <b>Improve</b> application to <b>edit todos</b>.
+- <b>Improve</b> application to <b>save todos in local store</b>.
+- <b>Improve</b> application to <b>load existing Todos from local store</b>.
+
+---
+
+<b>Example</b>
+
+<img style="width: 600px;" src="/images/todos.gif">
 
 ---
 
