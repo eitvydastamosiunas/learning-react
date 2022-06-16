@@ -889,7 +889,7 @@ Create <b>static page</b> and <b>implement todo</b> functionality using techniqu
   - script src="https://unpkg.com/react@17/umd/react.development.js"
   - script src="https://unpkg.com/react-dom@17/umd/react-dom.development.js
   - script src="https://unpkg.com/@babel/standalone/babel.min.js
-  - script type="text/jsx"
+  - script type="text/babel"
 3. <b>Render react app</b> displaying <b>"Hello World!"</b>
 4. <b>Mock some todos</b> in <b>array</b>
 5. <b>Create component</b> which <b>shows todo count</b>
