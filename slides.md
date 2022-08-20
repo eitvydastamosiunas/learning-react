@@ -18,7 +18,7 @@ hideInToc: true
 # Agenda
 
 <Scroller>
-    <Toc />
+    <Toc :columns="2"/>
 </Scroller>
 
 ---
@@ -1283,6 +1283,26 @@ npm run dev
 <img style="width: 600px;" src="/images/todos.gif">
 
 ---
+layout: cover
+background: /images/cover-start.gif
+background-position-x: 200%
+---
+
+# Day 2
+
+## React - advanced
+
+---
+hideInToc: true
+---
+
+# Agenda
+
+<Scroller>
+    <Toc :columns ="2"/>
+</Scroller>
+
+---
 
 # Forms
 
@@ -2230,6 +2250,278 @@ Cypress <b>enables</b> you to write <b>all types</b> of tests:
 npx create-next-app@latest --example with-cypress with-cypress-app
 npm i
 npm run test
+```
+---
+
+# Working with API
+
+While working with expternal api's, try to keep the api requests and resolving outside of react code. Later you can import the request functions into your hooks or react components. This will allow to decouple communication with api from react gives a way to reuse it in multiple places. This could be helpfull in future if the application will have to be rewritten using different FE technology. As well having the api code kept seperatelly form react code will allow to have better overview which apis are called if all api functions are handled in a similar fashion.
+
+- Use fetch API or Axios library
+- Use Async-Await
+- For each external API create Api class or Api functions file
+- Intercept every request and insert tokens, headers and other stuff
+- use custom hool for performing api calls
+- try to avoid any code duplication as possible
+
+---
+
+## Custom hook example
+
+Encapsulate requesting data, handing the async things, handling errors, success, and loading states inside a hook.
+
+```jsx{3-5|6-16|19|all}
+import { useState } from "react";
+export default (apiFunc) => {
+  const [data, setData] = useState(null);
+  const [error, setError] = useState("");
+  const [loading, setLoading] = useState(false);
+  const request = async (...args) => {
+    setLoading(true);
+    try {
+      const result = await apiFunc(...args);
+      data = await result.json();
+      setData(data);
+    } catch (err) {
+      setError(err.message || "Unexpected Error!");
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  return { data, error, loading, request };
+};
+```
+---
+
+## Create api functions
+
+Create own api file which describes all API calls.
+
+```jsx
+export const getPosts = () => fetch("https://jsonplaceholder.typicode.com/posts");
+export const getComments = () => fetch("https://jsonplaceholder.typicode.com/comments");
+...
+```
+
+---
+layout: two-cols
+---
+
+## Using custom hook
+
+Import custom Api hook and api call functions and use them in your component.
+
+```jsx{3-4|7-8|10-13|all}
+import "./styles.css";
+import React, { useEffect } from "react";
+import useApi from "./hooks/useApi";
+import { getPosts, getComments } from "./api";
+
+export default function App() {
+  const getPostsApi = useApi(getPosts);
+  const getCommentsApi = useApi(getComments);
+
+  useEffect(() => {
+    getPostsApi.request();
+    getCommentsApi.request();
+  }, []);
+  --->
+}
+```
+
+::right::
+
+```jsx{5-6,8-10|15-16,18-20|all}
+return (
+    <div className="App">
+      <div>
+        <h1>Posts</h1>
+        {getPostsApi.loading && <p>Posts are loading!</p>}
+        {getPostsApi.error && <p>{getPostsApi.error}</p>}
+        <ul>
+          {getPostsApi.data?.map((post) => (
+            <li key={post.id}>{post.title}</li>
+          ))}
+        </ul>
+      </div>
+      <div>
+        <h1>Comments</h1>
+        {getCommentsApi.loading && <p>Comments are loading!</p>}
+        {getCommentsApi.error && <p>{getCommentsApi.error}</p>}
+        <ul>
+          {getCommentsApi.data?.map((comment) => (
+            <li key={comment.id}>{comment.name}</li>
+          ))}
+        </ul>
+      </div>
+    </div>
+  );
+```
+
+---
+
+# Fetch
+
+One of the main selling points of Axios is its wide browser support. Even old browsers like IE11 can run Axios without any issue. This is because it uses XMLHttpRequest under the hood.
+
+Good news! MS finally has ended support for IE11 on 2022 June 15. 
+
+While making the decision of using fetch api with you application check <a href="https://caniuse.com/fetch">Can I use</a> for browsers supporting it. It might be that your customers might still use the older browsers which does not support fetch api. In case of need of supporting other browsers that does not support fetch this <a href="https://github.com/github/fetch">polyfill</a> can be used.
+
+
+```js
+npm install whatwg-fetch --save
+import 'whatwg-fetch'
+window.fetch(...)
+```
+
+---
+
+## Manual JSON transformation
+
+As axios automatically parses the data, the fetch requires to call <i>'.json()'</i> property. This can be easily done by writing your own helper function which handles response, deserializes data from from string to json and returns the result.
+
+```js {1-7|9-15|all}
+// axios
+axios.get('https://api.github.com/orgs/axios')
+  .then(response => {
+    console.log(response.data);
+  }, error => {
+    console.log(error);
+  });
+
+// fetch()
+fetch('https://api.github.com/orgs/axios')
+  .then(response => response.json())    // one extra step
+  .then(data => {
+    console.log(data) 
+  })
+  .catch(error => console.error(error));
+```
+
+---
+
+## Handling timeouts using axios
+
+Some developers prefer axios over the fetch api because it has a <i>timeout</i> property.
+
+```js{4|1-9|10-11|all}
+axios({
+  method: 'post',
+  url: '/login',
+  timeout: 4000,    // 4 seconds timeout
+  data: {
+    firstName: 'David',
+    lastName: 'Pollock'
+  }
+})
+.then(response => {/* handle the response */})
+.catch(error => console.error('timeout exceeded'))
+```
+---
+
+## Handling timeouts using fetch
+
+The same functionality can be achieved using fetch api, but it requires more code as it uses the <i>AbortController</i>.
+
+```ts {1|2-9|10|11|14-15|all}
+const controller = new AbortController();
+const options = {
+  method: 'POST',
+  signal: controller.signal,
+  body: JSON.stringify({
+    firstName: 'David',
+    lastName: 'Pollock'
+  })
+};  
+const promise = fetch('/login', options);
+const timeoutId = setTimeout(() => controller.abort(), 4000);
+
+promise
+  .then(response => {/* handle the response */})
+  .catch(error => console.error('timeout exceeded'));
+```
+---
+
+
+## HTTP interceptors using axios
+
+The axios by default provides the interceptors for HTTP requests. They become handy when you need to examine or change HTTP requests from your application to the server or vice versa (e.g., logging, authentication, or retrying a failed HTTP request). 
+
+```js{1-6|8-12|all}
+axios.interceptors.request.use(config => {
+  // log a message before any HTTP request is sent
+  console.log('Request was sent');
+
+  return config;
+});
+
+// sent a GET request
+axios.get('https://api.github.com/users/sideshowbarker')
+  .then(response => {
+    console.log(response.data);
+  });
+```
+
+---
+
+## HTTP interceptors using fetch
+
+By default, fetch() doesn’t provide a way to intercept requests, but it’s not hard to come up with a workaround. You can overwrite the global fetch() method and define your own interceptor, like this:
+
+```js{1-6|8-12|all}
+fetch = (originalFetch => {
+  return (...arguments) => {
+    const result = originalFetch.apply(this, arguments);
+      return result.then(console.log('Request was sent'));
+  };
+})(fetch);
+
+fetch('https://api.github.com/orgs/axios')
+  .then(response => response.json())
+  .then(data => {
+    console.log(data) 
+  });
+```
+
+---
+
+## Simultaneous requests using axios
+To make multiple simultaneous requests, Axios provides the axios.all() method. Simply pass an array of requests to this method, then use axios.spread() to assign the properties of the response array to separate variables:
+
+```js{1-4|5-9|all}
+axios.all([
+  axios.get('https://api.github.com/users/iliakan'), 
+  axios.get('https://api.github.com/users/taylorotwell')
+])
+.then(axios.spread((obj1, obj2) => {
+  // Both requests are now complete
+  console.log(obj1.data.login + ' has ' + obj1.data.public_repos + ' public repos on GitHub');
+  console.log(obj2.data.login + ' has ' + obj2.data.public_repos + ' public repos on GitHub');
+}));
+
+```
+
+---
+
+## Simultaneous requests using fetch
+You can achieve the same result by using the built-in Promise.all() method. Pass all fetch requests as an array to Promise.all(). Next, handle the response by using an async function, like this:
+
+```js{1-4|5-10|all}
+Promise.all([
+  fetch('https://api.github.com/users/iliakan'),
+  fetch('https://api.github.com/users/taylorotwell')
+])
+.then(async([res1, res2]) => {
+  const a = await res1.json();
+  const b = await res2.json();
+  console.log(a.login + ' has ' + a.public_repos + ' public repos on GitHub');
+  console.log(b.login + ' has ' + b.public_repos + ' public repos on GitHub');
+})
+.catch(error => {
+  console.log(error);
+});
 ```
 
 ---
