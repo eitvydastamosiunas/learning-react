@@ -2253,6 +2253,20 @@ npm run test
 ```
 ---
 
+---
+layout: cover
+background: /images/cover-start.gif
+background-position-x: 200%
+---
+
+# Day 2
+
+## React additional topics
+
+---
+hideInToc: true
+---
+
 # Working with API
 
 While working with expternal api's, try to keep the api requests and resolving outside of react code. Later you can import the request functions into your hooks or react components. This will allow to decouple communication with api from react gives a way to reuse it in multiple places. This could be helpfull in future if the application will have to be rewritten using different FE technology. As well having the api code kept seperatelly form react code will allow to have better overview which apis are called if all api functions are handled in a similar fashion.
@@ -2526,11 +2540,327 @@ Promise.all([
 
 ---
 
+# Constants
+
+Avoid using magic strings in your code. If you are using multiple magic strings in your project it might happen one day that you will need to change the value and it will be difficult to find them all. As well there is a risk to miss some. To avoid this you can create a constant files.
+
+```js
+// drinks.js
+export const COCA_COLA = 'COCA_COLA';
+export const DR_PEPPER = 'DR_PEPPER';
+export const PEPSI = 'PEPSI';
+```
+
+```js
+// chips.js
+export const SMITHS_ORIGINAL = 'SMITHS_ORIGINAL';
+export const SMITHS_SALT_VINEGAR = 'SMITHS_SALT_VINEGAR';
+export const RRD_SWEET_CHILLI = 'RRD_SWEET_CHILLI';
+```
+
+---
+
+Bundle your constants files into index.js file using the * operator which export gives us, letting us quickly import and export every constant from a given file as a one-liner:
+
+```js
+// index.js
+export * from './drinks';
+export * from './chips.js';
+```
+
+```js
+import { COCA_COLA, SMITHS_ORIGINAL } from 'constants';
+...
+if (drink.type === COCA_COLA) {
+  ...
+}
+...
+```
+
+---
+
+If you are using typescript you use string based enums instead of constants.
+
+```ts
+export enum Drinks {
+  COCA_COLA = 'COCA_COLA';
+  DR_PEPPER = 'DR_PEPPER';
+  PEPSI = 'PEPSI';
+}
+
+export enum Chips {
+  SMITHS_ORIGINAL = 'SMITHS_ORIGINAL';
+  SMITHS_SALT_VINEGAR = 'SMITHS_SALT_VINEGAR';
+  RRD_SWEET_CHILLI = 'RRD_SWEET_CHILLI';
+}
+
+```
+
+```ts
+import { Drinks, Chips } from './enums'
+
+...
+const drink = Drinks.COCA_COLA;
+const chip = Chips.SMITHS_ORIGINAL;
+...
+
+if (drink.type === Drinks.COCA_COLA) {
+  ...
+}
+...
+```
+
+---
+
+# Helper functions
+
+Sometimes some parts of the <b>code</b> are <b>repeated</b> in <b>multiple places</b>. To have more <b>maintainable code</b> always try to find <b>repetitions</b> and <b>refactor</b> them as the helper functions. While doing it, eliminate all <b>hardcoded</b> parts and add them as function <b>parameters</b> to make <b>dynamic function</b>. This would allow easier <b>code maintainance</b> as you will have <b>less code to maintain</b>. 
+
+---
+
+### Example
+
+```js
+// TimeMachine.jsx
+const sayToday = () => {
+  return `Today date is ${new Date().toLocaleString('lt')}`;
+}
+
+const sayYesterday = () => {
+  const today = new Date();
+  let yesterday = new Date(today);
+  yesterday.setDate(today.getDate() - 1);
+  return `Yesterday date was ${yesterday.toLocaleString('lt')}`;
+}
+
+const sayTomorrow = () => {
+  const today = new Date();
+  let tomorrow = new Date(today);
+  tomorrow.setDate(today.getDate() + 1);
+  return `Tommorrow date is ${tomorrow.toLocaleString('lt')}`;
+}
+
+<>{sayYesterday()}</>
+<>{sayToday()}</>
+<>{sayTomorrow()}</>
+
+```
+
+--- 
+
+## How?
+While implementing the algorithm firstly <b>don't think</b> about the <b>splitting</b> into normal and helper functions. Try to <b>organize</b> code into <b>small functions</b> if possible. <i>If you feel achieving the goal by having one big funtion go for it</i>. When your code does what it supposed to do, start <b>optimizing</b> it and <b>refactoring</b>. <b>Extract</b> some <b>code</b> the other <b>functions</b> in the <b>same file</b>. While doing that try to <b>think</b> if the <b>extracted</b> function could be <b>reused</b> in <b>anywhere else</b>?<b> Will anyone else benefit from its usage?</b> Will it <b>solve</b> some <b>annoying part</b> of the code you are <b>doing again and again</b>? If yes, extract it and refactor to helper functions. Spend some time on <b>naming function well</b>. 
+
+
+---
+
+## Refactored example
+
+```ts
+// date-helpers.ts
+export const addDays = (daysToAdd: number) => {
+  const today = new Date();
+  let newDate = new Date(today);
+  newDate.setDate(today.getDate() + daysToAdd);
+  return newDate;
+}
+```
+
+```jsx
+// TimeMachine.jsx
+import { addDays } from '../../date.utils';
+
+const sayDate = (text: string, date: Date) {
+  return `${text} ${date.toLocaleDateString('lt')}`;
+}
+
+<>{sayDate('Yesterday date was', addDays(-1))}</>
+<>{sayDate('Today date is', new Date())}</>
+<>{sayDate('Tomorrow date is', addDays(1))}</>
+
+```
+
+---
+
+### 
+
+In most cases <b>helper functions</b> are <b>tiny</b>. If the helper function is big probably it is not helper function at all or it requires refactoring... Helper function should follow <b>single responsibility principle</b>.
+
+Your team needs to decide where the helper functions will be located. Normally <b>utils/helpers</b> folder is created in the <b>root src folder</b>. You could have <b>multiple utils files</b> and <b>export all of them using index.js</b> file. 
+
+<i>Try to organize helper functions into files named to the domain objects the functions refer to.</i>
+
+```js
+// index.js
+export * from './url.helpers';
+export * from './string.helpers';
+export * from './date.helpers';
+```
+
+```js
+import { formatDate, getSitePage } from '../../helpers'
+// import * as Helpers from '../../helpers' - alternative
+...
+const formattedDate = formatDate(new Date());
+const sitePage = getSitePage(siteUrl, pageName);
+...
+
+```
+---
+
+
+# Env files
+Environment variables are <b>values</b> that <b>impact</b> the <b>behavior</b> of running computer systems, OS environments, and <b>applications</b>.
+
+<b>Types</b>
+```js
+.env: Default.
+.env.local: 'Local overrides. This file is loaded for all environments except the test.'
+.env.development, .env.test, .env.production: 'Environment-specific settings.'
+.env.development.local, .env.test.local, .env.production.local: 'Local overrides of environment-specific settings.'
+```
+
+<b>Configuring commands on package.json</b>
+```js
+npm start: ".env.development.local, .env.local, .env.development, .env"
+npm run build: ".env.production.local, .env.local, .env.production, .env"
+npm test: ".env.test.local, .env.test, .env"
+```
+<i>Files on the left have more priority than files on the right. <b>Do not commit any files with .local extensions.</b></i>
+
+---
+
+
+## Adding Environment Variables
+
+Firstly, create a file called .env in the root of your project and then we can add a variable like the below:
+
+```
+API_URL=HTTPS://localhost:5340/
+
+```
+  
+
+## Reading Environment Variables
+
+You can read the variables anywhere in your source code based on the requirement.
+
+```js
+console.log(process.env) // To view all env variables
+console.log(process.env.API_URL) // To view a specific env variable
+```
+
+---
+
+## Embedding via runtime
+Since React App produces a static HTML/CSS/JS bundle, it can’t possibly read them at runtime. Therefore, the environment variables are embedded during the build time.
+
+## Embedding via Run Time
+For this purpose, we would need to replace dynamic placeholders on runtime as we load the HTML into memory on the server. 
+On the server, you can replace _SERVER_DATA_ with a JSON of real data right before sending the response. The client code can then read <i>window.SERVER_DATA</i> to use it. Make sure to sanitize the JSON before sending it to the client as it makes your app vulnerable to XSS attacks.
+
+```html
+<!doctype html>
+<html lang="en">
+  <head>
+    <script>
+      window.SERVER_DATA = _SERVER_DATA_;
+    </script>
+```
+
+<i>WARNING: Never store any secrets in your React App, meaning that environment variables are embbed into React App and anyone can view them.</i>
+
+---
+## Tips
+
+- When writing unit tests within React App, the recommended approach is to have a separate <i>.env.test</i> file to avoid any conflict with <i>.env</i> file of different environments
+- Prevent adding any <i>secrets</i> within <i>.env</i> or <i>.env.production</i> as that would be visible to anyone on inspect
+- Having separate <i>.env</i> files for the different environments is a good approach only when values need to be different for respective environment
+
+---
+
+# Error handling
+
+- Use TypeScript + eslint
+- Use try / catch / finally for javascript errors
+- Sometimes it is worth to throw the error to stop from continuing further code execution
+- Showing notification of successfull or failed user actions
+- Log errors using own error reporting api
+- Using [sentry](https://try.sentry-demo.com/organizations/noble-bunny/projects/react/?project=53387) as errors and performance monitor
+
+---
+
+
+# React
+- Debugger (code line)
+- Browser Developer tools
+- React Developer Tools
+- Profiler
+- console.log() :)
+- Networking
+
+---
+
+# List of React libraries
+[Popular React libraries overview of 2022 by Robin Wieruch](https://www.robinwieruch.de/react-libraries/)
+- Redux
+- React router
+- Tailwind
+- Material UI
+- ESLint + Prettier
+- React Hook Form or Formik
+- Firebase
+- date-fns
+
+---
+
+# List of React tools
+[Must-Have React Developer Tools to Write Clean Code](https://dev.to/alexomeyer/10-must-have-react-developer-tools-to-write-clean-code-1808)
+- [useHooks](https://usehooks.com)
+- Bundle analyzer
+- React chrome extension
+- Storybook
+- Why Did You Render
+
+---
+
+## [Create React App](https://create-react-app.dev/docs/deployment/)
+Create Rreact App can be deployed to multiple hosting providers.
+- Self hosted using Node 
+- AWS Amplify
+- Azure
+- Firebase
+- Github pages
+- Heroku
+- Netlify
+- Vercel
+
+---
+
+## [Next.js](https://nextjs.org/docs/deployment)
+Next.js can be deployed to multiple hosting providers. Vercel is recomended as it is provide the fastest deployments and requires zero configuration.
+- Vercel
+- Self hosted using Node 
+- Docker
+- AWS Copilot 
+- Digital Ocean App Platform
+- Google Cloud Run
+- Heroku
+- Railway
+- Render
+- Azure Static Web Apps (static only)
+- Cloudflare Pages (static only)
+- Firebase (static only)
+- Github Pages (static only)
+
+---
+
+
 #  What to do next?
 
 <b>I encourage you to start learning by yourself. Here is a list of good sources.</b>
 
-[React documentation](https://reactjs.org/docs/getting-started.html)
+[React documentation](https://beta.reactjs.org/)
 
 [Create React App documentation](https://create-react-app.dev/docs/getting-started)
 
