@@ -2250,8 +2250,47 @@ Cypress <b>enables</b> you to write <b>all types</b> of tests:
 npx create-next-app@latest --example with-cypress with-cypress-app
 npm i
 npm run test
+npx cypress open
 ```
+
+## Component test 
+Cypress is using Testing library internally.
+
+```js
+// Stepper.cy.jsx - component testing
+import Stepper from './Stepper'
+it('when clicking increment and decrement buttons, the counter is changed as expected', () => {
+  cy.mount(<Stepper initial={100} />)
+  cy.get(counterSelector).should('have.text', '100')
+  cy.get(incrementSelector).click()
+  cy.get(counterSelector).should('have.text', '101')
+  cy.get(decrementSelector).click().click()
+  cy.get(counterSelector).should('have.text', '99')
+})
+```
+
 ---
+
+---
+## End to end test
+Runs in separate browser instance totaly controlled by Cypress and runs selected tests.
+
+```js
+// e2e test
+describe('My First Test', () => {
+  it('Gets, types and asserts', () => {
+    cy.visit('https://example.cypress.io')
+    cy.contains('type').click()
+    cy.url().should('include', '/commands/actions')
+    cy.get('.action-email')
+      .type('fake@email.com')
+      .should('have.value', 'fake@email.com')
+  })
+})
+```
+
+---
+
 
 ---
 layout: cover
