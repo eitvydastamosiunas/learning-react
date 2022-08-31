@@ -2325,25 +2325,36 @@ Encapsulate requesting data, handing the async things, handling errors, success,
 
 ```jsx{3-5|6-16|19|all}
 import { useState } from "react";
-export default (apiFunc) => {
-  const [data, setData] = useState(null);
-  const [error, setError] = useState("");
+
+interface IUseApiHookResponse<T> {
+  data: T | undefined;
+  error: string | undefined;
+  loading: boolean;
+  request: (url?: string, options?: RequestInit) => Promise<void>;
+}
+```
+---
+
+```tsx
+export const useApiHook = <T>(url: string, options?: RequestInit): IUseApiHookResponse<T> =>  {
   const [loading, setLoading] = useState(false);
-  const request = async (...args) => {
+  const [error, setError] = useState(undefined);
+  const [data, setData] = useState<T>();
+
+  const request = async(...args: any[]) => {
     setLoading(true);
     try {
-      const result = await apiFunc(...args);
-      data = await result.json();
-      setData(data);
-    } catch (err) {
-      setError(err.message || "Unexpected Error!");
+      const result = await fetch(url, options);
+      const data = await result.json();
+      setData(data as T);
+    } catch(e: any) {
+      setError(e.message || 'Unexpected Error!');
     } finally {
       setLoading(false);
     }
   };
-
-  return { data, error, loading, request };
-};
+  return {data, error, loading, request};
+}
 ```
 ---
 
@@ -2352,8 +2363,8 @@ export default (apiFunc) => {
 Create own api file which describes all API calls.
 
 ```jsx
-export const getPosts = () => fetch("https://jsonplaceholder.typicode.com/posts");
-export const getComments = () => fetch("https://jsonplaceholder.typicode.com/comments");
+export const getPostsApiUrl = "https://jsonplaceholder.typicode.com/posts";
+export const getCommentsApiUrl = "https://jsonplaceholder.typicode.com/comments";
 ...
 ```
 
@@ -2372,8 +2383,8 @@ import useApi from "./hooks/useApi";
 import { getPosts, getComments } from "./api";
 
 export default function App() {
-  const getPostsApi = useApi(getPosts);
-  const getCommentsApi = useApi(getComments);
+  const getPostsApi = useApi<IPost[]>(getPostsApiUrl);
+  const getCommentsApi = useApi<IComment[]>(getCommentsApiUrl);
 
   useEffect(() => {
     getPostsApi.request();
